@@ -27,10 +27,27 @@ body {
   padding-bottom: 40px;
 }
 
-/* .index .geography {
-  background-image: url('../img/geography.jpg');
-} */
+.visitor {
+  height: 400px;
+  position: fixed;
+  bottom: 0;
+  margin-left: -85px;
+  margin-bottom: -95px;
+}
 
-/* .index .ecology {
-  background-image: url('../img/ecology.jpg');
-} */
+.visitor2 {
+  height: 380px;
+  position: fixed;
+  bottom: 0;
+  margin-left: 165px;
+  margin-bottom: -100px;
+}
+
+.visitor3 {
+  height: 400px;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  margin-right: 104px;
+  margin-bottom: -117px;
+}
