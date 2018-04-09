@@ -27,7 +27,7 @@ body {
   padding-bottom: 40px;
 }
 
-.visitor {
+#visitor {
   height: 400px;
   position: fixed;
   bottom: 0;
@@ -35,7 +35,7 @@ body {
   margin-bottom: -95px;
 }
 
-.visitor2 {
+#visitor2 {
   height: 380px;
   position: fixed;
   bottom: 0;
@@ -43,7 +43,7 @@ body {
   margin-bottom: -100px;
 }
 
-.visitor3 {
+#visitor3 {
   height: 400px;
   position: fixed;
   bottom: 0;
