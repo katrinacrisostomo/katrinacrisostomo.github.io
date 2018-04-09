@@ -2,31 +2,6 @@ body {
   background-color: #C4DAE2;
 }
 
-.center {
-  text-align: center;
-}
-
-.indent {
-  text-indent: 30px;
-}
-
-.caption {
-  text-align: center;
-  font-size: 11px;
-}
-
-.index .flex {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.index .frame {
-  padding-left: 10px;
-  padding-right:10px;
-  padding-bottom: 40px;
-}
-
 #visitor {
   height: 400px;
   position: fixed;
@@ -50,4 +25,29 @@ body {
   right: 0;
   margin-right: 104px;
   margin-bottom: -117px;
+}
+
+.center {
+  text-align: center;
+}
+
+.indent {
+  text-indent: 30px;
+}
+
+.caption {
+  text-align: center;
+  font-size: 11px;
+}
+
+.index .flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.index .frame {
+  padding-left: 10px;
+  padding-right:10px;
+  padding-bottom: 40px;
 }
