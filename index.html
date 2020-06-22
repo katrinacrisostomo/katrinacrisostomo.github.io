@@ -12,20 +12,60 @@
       body {
         font-family: 'Libre Franklin', sans-serif;
         background-color: #ffeded;
-        margin-left: 205px;
+        display: flex;
+      }
+      .menu {
+        position: absolute;
+        top: 85px;
+        left: 230px;
+      }
+      .menu-item {
+        font-size: 16px;
+        display: block;
+        line-height: 1.5;
+        cursor: pointer;
+      }
+      .menu-item:hover {
+        text-decoration: underline;
+      }
+      .swirl {
+        font-weight: 600;
+      }
+      .container {
+        max-width: 640px;
+        margin-left: auto;
+        margin-right: auto;
       }
       .title {
         font-size: 52px;
         font-weight: 400px;
         margin-top: 70px;
+        margin-bottom: 15px;
       }
       p {
-        font-size: 18px;
+        font-size: 16px;
       }
     </style>
   </head>
   <body id="index">
-    <p class="title">Katrina Crisostomo</p>
-    <p>I am a software engineer from Toronto.</p>
+    <div class="menu">
+      <li class="menu-item">
+        <a>Home</a>
+      </li>
+      <li class="menu-item">
+        <a>Blog <span class="swirl">〜</span></a>
+      </li>
+      <li class="menu-item">
+        <a>Projects</a>
+      </li>
+      <li class="menu-item">
+        <a>Experience</a>
+      </li>
+    </div>
+    <div class="container">
+      <p class="title">Katrina Crisostomo</p>
+      <p>I am a software engineer from Toronto  👋</p>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit ducimus, qui hic nisi officia deserunt sunt quis aliquam magni doloribus! Impedit delectus sapiente consequatur rerum consectetur ab quos porro sit?</p>
+    </div>
   </body>
 </html>
