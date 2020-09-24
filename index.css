@@ -7,6 +7,22 @@ body {
   letter-spacing: 0.125rem;
 }
 
+@font-face {
+  font-family: 'Zanzegi';
+  font-weight: 400;
+  font-style: normal;
+  src: url('assets/ZangeziSans09-Regular.woff') format('woff'),
+      url('assets/ZangeziSans09-Regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Zanzegi Text';
+  font-weight: 400;
+  font-style: normal;
+  src: url('assets/ZangeziSans09-Text.woff') format('woff'),
+      url('assets/ZangeziSans09-Text.woff2') format('woff2');
+}
+
 .container {
   max-width: 1020px;
   margin-right: auto;
@@ -14,9 +30,9 @@ body {
 }
 
 .name {
-  letter-spacing: 0.3rem;
-  font-size: 42px;
-  font-weight: 400px;
+  font-family: 'Zanzegi Text';
+  font-size: 58px;
+  font-weight: 400;
   margin-top: 100px;
   margin-bottom: 20px;
 }
@@ -31,10 +47,9 @@ p {
 }
 
 .section-title {
-  font-family: 'IBM Plex Mono';
-  font-style: italic;
+  font-family: 'Zanzegi Text';
   margin-bottom: 20px;
-  letter-spacing: 0.25rem;
+  font-size: 20px;
 }
 
 .project {
