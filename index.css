@@ -27,19 +27,37 @@ body {
   max-width: 1020px;
   margin-right: auto;
   margin-left: auto;
+  margin-top: 100px;
 }
 
 .name {
   font-family: 'Zanzegi Text';
   font-size: 58px;
   font-weight: 400;
-  margin-top: 100px;
   margin-bottom: 20px;
 }
 
 p {
+  margin: 0;
   font-size: 18px;
   line-height: 2;
+}
+
+.intro {
+  display: flex;
+  align-items: center;
+  /* justify-content: space-between; */
+}
+
+.img {
+  width: auto;
+  height: 70px;
+  margin-bottom: 40px;
+  margin-left: 40px;
+}
+
+.intro-text {
+  margin-top: 20px;
 }
 
 .section {
@@ -53,12 +71,21 @@ p {
 }
 
 .project {
-  font-size: 20px;
-  margin: 0px;
+  margin-bottom: 30px;
 }
 
-.link {
-  font-size: 16px;
+.p-description {
+  font-size: 15px;
+  margin: 0;
+  margin-left: 29px;
+}
+
+.icon {
+  font-size: 20px;
+}
+
+a {
+  font-weight: 600;
   text-decoration: none;
   color: rgb(228, 98, 176);
 }
