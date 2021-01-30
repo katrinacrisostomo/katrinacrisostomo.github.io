@@ -53,7 +53,7 @@ a:hover {
   max-width: 1097px;
   margin-right: auto;
   margin-left: auto;
-  margin-top: 110px;
+  margin-top: 100px;
 }
 
 .menu {
@@ -63,14 +63,16 @@ a:hover {
 }
 
 .menu-link {
+  font-style: italic;
   margin-bottom: 30px;
   color: black;
   font-size: 14px;
 }
 
 .name {
-  font-family: 'Zanzegi Text';
-  font-size: 58px;
+  font-family: Fraunces;
+  letter-spacing: 0px;
+  font-size: 68px;
   font-weight: 400;
   margin-bottom: 20px;
   margin-left: auto;
@@ -101,16 +103,23 @@ p {
   text-align: center;
 }
 
+.intro-text p {
+  font-family: 'IBM Plex Mono';
+  font-size: 16px;
+  letter-spacing: 0px;
+}
+
 .main {
-  background: url('Vector 2.png') no-repeat center top scroll;
   background-size: 1050px;
   margin-top: 120px;
 }
 
 .section-title {
-  font-family: 'Zanzegi Text';
-  margin-bottom: 20px;
-  font-size: 20px;
+  font-family: 'IBM Plex Mono';
+  letter-spacing: 0px;
+  margin-bottom: 26px;
+  margin-top: 20px;
+  font-size: 16px;
 }
 
 .section {
@@ -119,24 +128,44 @@ p {
 }
 
 .project {
-  padding-bottom: 30px;
+  margin-bottom: 64px;
+}
+
+.p-title-projects {
+  margin-bottom: 15px;
+  font-family: Fraunces;
+  letter-spacing: 0px;
+  font-size: 22px;
+  margin-top: 24px;
 }
 
 .p-title {
+  margin-left: 29px;
   margin-bottom: 15px;
+  font-family: Fraunces;
+  letter-spacing: 0px;
+  font-size: 22px;
+  margin-top: 16px;
+}
+
+.p-subtitle {
+  margin-top: 20px;
+  margin-left: 29px;
+  font-size: 11px;
 }
 
 .p-description {
-  font-size: 15px;
+  font-family: 'IBM Plex Mono';
+  font-size: 14px;
   margin: 0;
   margin-left: 29px;
   max-width: 830px;
   margin-top: 10px;
-  letter-spacing: 0.1rem;
+  letter-spacing: 0px;
 }
 
 .icon {
-  font-size: 20px;
+  font-size: 24px;
 }
 
 .link:hover {
