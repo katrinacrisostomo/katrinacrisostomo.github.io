@@ -23,10 +23,10 @@ const experience = [
 
 function App() {
   return (
-    <div className="flex min-h-screen flex-col bg-white text-black">
+    <div className="flex min-h-screen flex-col text-black">
       <header className="shrink-0 border-b border-neutral-200">
         <div className="mx-auto flex max-w-7xl flex-col gap-6 px-6 py-5 sm:flex-row sm:items-baseline sm:justify-between sm:gap-8">
-          <div className="flex flex-col gap-2 sm:flex-row sm:items-baseline sm:gap-5">
+          <div className="hidden flex-col gap-2 sm:flex sm:flex-row sm:items-baseline sm:gap-5">
             <span className="font-mono text-sm font-bold uppercase">
               Katrina Crisostomo
             </span>
@@ -43,13 +43,13 @@ function App() {
             </a>
             <a
               className="font-normal text-neutral-400 hover:text-black"
-              href="#about"
+              // href="#about"
             >
               About
             </a>
             <a
               className="font-normal text-neutral-400 hover:text-black"
-              href="/resume.pdf"
+              // href="/resume.pdf"
             >
               Resume
             </a>
@@ -61,8 +61,6 @@ function App() {
         id="work"
         className="mx-auto flex w-full max-w-7xl flex-1 flex-col justify-end px-6 pb-16 pt-24 md:pb-24 md:pt-32"
       >
-        <div id="about" className="sr-only" aria-hidden="true" />
-
         <div className="grid w-full grid-cols-1 gap-12 md:gap-16 lg:grid-cols-2 lg:items-end lg:gap-x-12">
           <p className="font-serif text-[clamp(1.75rem,4vw,2.75rem)] font-semibold leading-[1.15] tracking-[-0.02em] text-black">
             I&apos;m Katrina, a product engineer who also designs.
