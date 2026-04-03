@@ -77,9 +77,11 @@ function App() {
         className="mx-auto flex w-full max-w-8xl flex-1 flex-col px-6 pb-16 pt-56 md:pb-24 md:pt-64"
       >
         <div className="w-full">
-          <div className="grid w-full grid-cols-1 gap-12 md:gap-16 lg:grid-cols-2 lg:items-end lg:gap-x-20 xl:gap-x-24">
+          <div className="grid w-full grid-cols-1 gap-6 md:gap-8 lg:grid-cols-2 lg:items-end">
             <p className="font-serif text-[clamp(1.5rem,3.5vw,2.5rem)] font-medium leading-[1.15] tracking-[0.01em] text-black">
-              I&apos;m Katrina, a product engineer who also designs.
+              I&apos;m Katrina, a product
+              <br />
+              engineer who also designs.
             </p>
 
             <div className="min-w-0 font-sans text-sm">
