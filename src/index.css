@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@300;400;500&family=IBM+Plex+Serif:wght@300;400;500&display=swap');
+@import "tailwindcss";
+
+body {
+  ::selection {
+    background-color: var(--color-primary, #99104b);
+    color: #fff;
+  }
+  
+  ::-moz-selection {
+    background-color: var(--color-primary, #99104b);
+    color: #fff;
+  }
+}
+
+@theme {
+  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --font-serif: "IBM Plex Serif", ui-serif, serif;
+
+  --color-primary: #99104b;
+  --color-secondary: #e2cfea;
+  --color-tertiary: #c5dbfe;
+}
+
+@media (pointer: fine) {
+  html.custom-cursor-active,
+  html.custom-cursor-active * {
+    cursor: none !important;
+  }
+
+  html.custom-cursor-active input,
+  html.custom-cursor-active textarea,
+  html.custom-cursor-active [contenteditable="true"] {
+    cursor: text !important;
+  }
+}
