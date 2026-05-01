@@ -71,26 +71,31 @@ function App() {
           aria-label="Work samples"
         >
           <ProjectItem
-            label="Deep Dive"
+            type="case-study"
             title="LLM-as-a-Judge Eval Creation"
-            description="In recent months, we decided to revisit our page designs and apply our design rules to them more consistently."
+            description="Designing the interface for authoring LLM-powered evaluation metrics — a form that's fast when picking a template and forgiving when writing a custom prompt from scratch."
           />
           <ProjectItem
             gradient={projectItemGradientB}
-            label="Work"
+            type="snapshot"
             title="Trace Inspection"
             description="In recent months, we decided to revisit our page designs and apply our design rules to them more consistently."
           />
           <ProjectItem
-            label="Tech"
+            type="snapshot"
             title="Custom Dashboards"
             description="In recent months, we decided to revisit our page designs and apply our design rules to them more consistently."
           />
           <ProjectItem
             gradient={projectItemGradientB}
-            label="Tech"
+            type="case-study"
             title="Query Builder"
-            description="In recent months, we decided to revisit our page designs and apply our design rules to them more consistently."
+            description="Designing the filter primitive used across the product — a column, operator, and value row that adapts its inputs to whatever data type you're filtering, so users learn it once and recognize it everywhere."
+          />
+          <ProjectItem
+            type="concept"
+            title="Anki Flashcards Redesign"
+            description="A study of how Anki could feel calmer and easier to come back to every day, reimagined around my own practice of learning Chinese."
           />
         </section>
       </main>
