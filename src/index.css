@@ -2,11 +2,21 @@
 @import "tailwindcss";
 
 body {
-  background-color: #FCFBF8;
+  ::selection {
+    background-color: var(--color-primary, #99104b);
+    color: #fff;
+  }
+  
+  ::-moz-selection {
+    background-color: var(--color-primary, #99104b);
+    color: #fff;
+  }
 }
 
 @theme {
   --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui;
   --font-mono: "IBM Plex Mono", ui-monospace, monospace;
   --font-serif: "IBM Plex Serif", ui-serif, serif;
+
+  --color-primary: #99104b;
 }
