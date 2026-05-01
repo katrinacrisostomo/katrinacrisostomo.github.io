@@ -79,12 +79,12 @@ function App() {
             gradient={projectItemGradientB}
             type="snapshot"
             title="Trace Inspection"
-            description="In recent months, we decided to revisit our page designs and apply our design rules to them more consistently."
+            description="An overview of the design of our trace inspection tool — a way to inspect the contents of a trace to understand what happened when a user interacted with an LLM application."
           />
           <ProjectItem
             type="snapshot"
             title="Custom Dashboards"
-            description="In recent months, we decided to revisit our page designs and apply our design rules to them more consistently."
+            description="An overview of the design that allows users to create custom dashboards to visualize the product analytics of their LLM applications."
           />
           <ProjectItem
             gradient={projectItemGradientB}
