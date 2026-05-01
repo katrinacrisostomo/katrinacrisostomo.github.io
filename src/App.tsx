@@ -1,4 +1,5 @@
 import AsciiParallax from "./components/AsciiParallax";
+import CustomCursor from "./components/CustomCursor";
 import Header from "./components/Header";
 import ProjectItem, { projectItemGradientB } from "./components/ProjectItem";
 
@@ -28,6 +29,7 @@ const experience = [
 function App() {
   return (
     <div className="flex min-h-screen flex-col text-black">
+      <CustomCursor />
       <Header />
 
       <main
