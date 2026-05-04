@@ -42,7 +42,7 @@ export default function ProjectItem({
   description,
 }: ProjectItemProps) {
   return (
-    <article className="flex flex-col gap-4">
+    <article className="mb-6 flex flex-col gap-6 md:mb-0 md:gap-4">
       <div className="relative aspect-[16/10] w-full overflow-hidden rounded-sm shadow-sm ring-1 ring-black/5">
         <div
           className="absolute inset-0"

@@ -34,19 +34,28 @@ function App() {
 
       <main
         id="work"
-        className="mx-auto flex w-full max-w-8xl flex-1 flex-col px-6 pb-16"
+        className="mx-auto flex w-full max-w-8xl flex-1 flex-col px-6 pt-10 pb-16 md:pt-0"
       >
         <div className="w-full">
           <div className="relative left-1/2 -translate-x-1/2 hidden w-screen py-15 md:block">
             <AsciiParallax />
           </div>
           <div className="grid w-full grid-cols-1 gap-6 md:gap-8 lg:grid-cols-2 lg:items-end">
-            <p className="font-serif text-[clamp(1.5rem,3.5vw,2.5rem)] font-medium leading-snug tracking-[0.01em] text-black">
+            <p className="pt-28 font-serif text-[clamp(1.85rem,3.5vw,2.5rem)] font-medium leading-snug tracking-[0.01em] text-black md:hidden">
+              I&apos;m <span className="italic">Katrina</span>,
+              <br />
+              a product engineer
+              <br />
+              who also designs.
+            </p>
+            <p className="hidden font-serif text-[clamp(1.85rem,3.5vw,2.5rem)] font-medium leading-snug tracking-[0.01em] text-black md:block md:pt-0">
               I&apos;m <span className="italic">Katrina</span>, a product
               <br />
               engineer who also designs.
             </p>
-
+            <div className="relative left-1/2 block -translate-x-1/2 w-screen md:hidden pb-10">
+              <AsciiParallax fontSize={14} />
+            </div>
             <div className="min-w-0 font-sans text-sm">
               <ul className="flex flex-col gap-8 lg:grid lg:w-full lg:grid-cols-[minmax(4.25rem,0.38fr)_minmax(0,0.46fr)_minmax(0,1.2fr)] lg:gap-x-8 lg:gap-y-3">
                 {experience.map((row) => (
@@ -67,7 +76,7 @@ function App() {
         </div>
 
         <section
-          className="mt-6 grid w-full grid-cols-1 gap-6 md:mt-8 md:grid-cols-2 md:gap-8"
+          className="mt-6 grid w-full grid-cols-1 gap-6 pt-13 md:mt-8 md:grid-cols-2 md:gap-8 md:pt-0"
           aria-label="Work samples"
         >
           <ProjectItem
