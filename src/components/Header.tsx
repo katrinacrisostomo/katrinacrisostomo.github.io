@@ -6,7 +6,7 @@ export default function Header() {
           <span className="font-mono text-sm font-medium uppercase">
             Katrina Crisostomo
           </span>
-          <span className="text-sm font-mono uppercase text-neutral-400 sm:text-sm">
+          <span className="text-sm font-mono text-neutral-400 sm:text-sm">
             Product Engineer + Designer
           </span>
         </div>
