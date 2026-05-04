@@ -1,3 +1,12 @@
+import { NavLink } from "react-router-dom";
+
+const navLinkClass = ({ isActive }: { isActive: boolean }) =>
+  `px-3 sm:px-6 ${
+    isActive
+      ? "font-medium text-black"
+      : "font-normal text-neutral-400 hover:text-black"
+  }`;
+
 export default function Header() {
   return (
     <header className="shrink-0 border-b border-neutral-200">
@@ -14,19 +23,12 @@ export default function Header() {
           className="flex w-full justify-center gap-4 font-mono text-xs uppercase sm:w-auto sm:gap-8 sm:text-sm"
           aria-label="Primary"
         >
-          <a className="px-3 font-medium text-black sm:px-6">Work</a>
-          <a
-            className="px-3 font-normal text-neutral-400 hover:text-black sm:px-6"
-            // href="#about"
-          >
+          <NavLink to="/" end className={navLinkClass}>
+            Work
+          </NavLink>
+          <NavLink to="/about" className={navLinkClass}>
             About
-          </a>
-          <a
-            className="px-3 font-normal text-neutral-400 hover:text-black sm:px-6"
-            // href="/resume.pdf"
-          >
-            Resume
-          </a>
+          </NavLink>
         </nav>
       </div>
     </header>
