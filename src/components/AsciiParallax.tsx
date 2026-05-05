@@ -15,6 +15,7 @@ type MeasuredGrapheme = {
   key: string;
   glyph: string;
   baseX: number;
+  centerX: number;
   width: number;
   isSpace: boolean;
   isStar: boolean;
@@ -213,6 +214,35 @@ function getRowSpeed(rowIndex: number, rowCount: number): number {
   return magnitude * direction;
 }
 
+function findFirstCharIndex(
+  chars: MeasuredGrapheme[],
+  targetCenterX: number,
+): number {
+  let low = 0;
+  let high = chars.length;
+
+  while (low < high) {
+    const mid = Math.floor((low + high) / 2);
+    const midChar = chars[mid];
+    if (!midChar) {
+      break;
+    }
+
+    if (midChar.centerX < targetCenterX) {
+      low = mid + 1;
+    } else {
+      high = mid;
+    }
+  }
+
+  return low;
+}
+
+function applyBaseCharStyle(element: HTMLSpanElement, char: MeasuredGrapheme) {
+  element.style.transform = `translate3d(0px, 0px, 0) scale(${char.isStar ? STAR_BASE_SCALE : 1})`;
+  element.style.opacity = char.isSpace ? "0" : `${BASE_CHAR_OPACITY}`;
+}
+
 function toGraphemeWidths(
   prepared: PreparedTextWithSegments,
   segmentIndex: number,
@@ -261,6 +291,7 @@ function measurePattern(
         key: `${segmentIndex}-${graphemeIndex}-${chars.length}`,
         glyph,
         baseX: cursor,
+        centerX: cursor + width / 2,
         width,
         isSpace: glyph.trim().length === 0,
         isStar: glyph === STAR_SYMBOL,
@@ -274,6 +305,7 @@ function measurePattern(
       key: "fallback",
       glyph: ".",
       baseX: 0,
+      centerX: fontSize / 2,
       width: fontSize,
       isSpace: false,
       isStar: false,
@@ -299,6 +331,7 @@ function expandPattern(pattern: PatternRow, viewportWidth: number): RenderRow {
         glyph: patternChar.glyph,
         width: patternChar.width,
         baseX: patternChar.baseX + repeatIndex * pattern.patternWidth,
+        centerX: patternChar.centerX + repeatIndex * pattern.patternWidth,
         isSpace: patternChar.isSpace,
         isStar: patternChar.isStar,
       });
@@ -330,8 +363,11 @@ export default function AsciiParallax({
   const reducedMotionRef = useRef(false);
   const patternsRef = useRef<PatternRow[]>([]);
   const rowOffsetsRef = useRef<number[]>([]);
+  const rowTrackRefsRef = useRef<Array<HTMLDivElement | null>>([]);
   const charRefsRef = useRef<Array<Array<HTMLSpanElement | null>>>([]);
+  const activeRippleIndicesRef = useRef<Array<number[]>>([]);
   const [rows, setRows] = useState<RenderRow[]>([]);
+  const [isInView, setIsInView] = useState(true);
   const bandHeight = rowCount * rowHeight;
 
   useEffect(() => {
@@ -390,6 +426,26 @@ export default function AsciiParallax({
     observer.observe(container);
     return () => {
       cancelAnimationFrame(frameId);
+      observer.disconnect();
+    };
+  }, []);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container || typeof IntersectionObserver === "undefined") {
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        setIsInView(entry?.isIntersecting ?? false);
+      },
+      { rootMargin: "120px 0px" },
+    );
+
+    observer.observe(container);
+    return () => {
       observer.disconnect();
     };
   }, []);
@@ -486,10 +542,51 @@ export default function AsciiParallax({
       }
       return existingRefs;
     });
+
+    rowTrackRefsRef.current = rows.map(
+      (_, rowIndex) => rowTrackRefsRef.current[rowIndex] ?? null,
+    );
+
+    activeRippleIndicesRef.current = rows.map(
+      (_, rowIndex) => activeRippleIndicesRef.current[rowIndex] ?? [],
+    );
   }, [rows]);
 
   useEffect(() => {
-    if (rows.length === 0) {
+    if (isInView) {
+      return;
+    }
+
+    pointerRef.current.targetIntensity = 0;
+    pointerRef.current.intensity = 0;
+
+    for (let rowIndex = 0; rowIndex < rows.length; rowIndex++) {
+      const row = rows[rowIndex];
+      if (!row) {
+        continue;
+      }
+
+      const activeIndices = activeRippleIndicesRef.current[rowIndex] ?? [];
+      const rowRefs = charRefsRef.current[rowIndex];
+      if (!rowRefs || activeIndices.length === 0) {
+        continue;
+      }
+
+      for (const charIndex of activeIndices) {
+        const element = rowRefs[charIndex];
+        const char = row.chars[charIndex];
+        if (!element || !char) {
+          continue;
+        }
+        applyBaseCharStyle(element, char);
+      }
+
+      activeRippleIndicesRef.current[rowIndex] = [];
+    }
+  }, [isInView, rows]);
+
+  useEffect(() => {
+    if (rows.length === 0 || !isInView) {
       return;
     }
 
@@ -509,10 +606,13 @@ export default function AsciiParallax({
       pointer.intensity +=
         (pointer.targetIntensity - pointer.intensity) * eased;
       const reducedMotion = reducedMotionRef.current;
+      const shouldRipple = pointer.intensity > 0.001 && !reducedMotion;
+      const minX = pointer.x - REPEL_RADIUS;
+      const maxX = pointer.x + REPEL_RADIUS;
 
       for (let rowIndex = 0; rowIndex < rows.length; rowIndex++) {
-        const row = rows[rowIndex]!;
-        if (row.patternWidth <= 0) {
+        const row = rows[rowIndex];
+        if (!row || row.patternWidth <= 0) {
           continue;
         }
 
@@ -523,54 +623,103 @@ export default function AsciiParallax({
         );
         rowOffsetsRef.current[rowIndex] = offset;
 
-        const yCenter = rowIndex * rowHeight + rowHeight / 2;
+        const rowTrack = rowTrackRefsRef.current[rowIndex];
+        if (rowTrack) {
+          rowTrack.style.transform = `translate3d(${offset}px, 0, 0)`;
+        }
+
         const rowRefs = charRefsRef.current[rowIndex];
+        const prevActiveIndices = activeRippleIndicesRef.current[rowIndex] ?? [];
+
         if (!rowRefs) {
+          activeRippleIndicesRef.current[rowIndex] = [];
           continue;
         }
 
-        for (let charIndex = 0; charIndex < row.chars.length; charIndex++) {
+        if (!shouldRipple) {
+          if (prevActiveIndices.length > 0) {
+            for (const charIndex of prevActiveIndices) {
+              const element = rowRefs[charIndex];
+              const char = row.chars[charIndex];
+              if (!element || !char) {
+                continue;
+              }
+              applyBaseCharStyle(element, char);
+            }
+            activeRippleIndicesRef.current[rowIndex] = [];
+          }
+          continue;
+        }
+
+        const yCenter = rowIndex * rowHeight + rowHeight / 2;
+        const dy = yCenter - pointer.y;
+        if (Math.abs(dy) >= REPEL_RADIUS) {
+          if (prevActiveIndices.length > 0) {
+            for (const charIndex of prevActiveIndices) {
+              const element = rowRefs[charIndex];
+              const char = row.chars[charIndex];
+              if (!element || !char) {
+                continue;
+              }
+              applyBaseCharStyle(element, char);
+            }
+            activeRippleIndicesRef.current[rowIndex] = [];
+          }
+          continue;
+        }
+
+        const startIndex = findFirstCharIndex(row.chars, minX - offset);
+        const endIndex = findFirstCharIndex(row.chars, maxX - offset + 0.001);
+        const nextActiveIndices: number[] = [];
+
+        for (let charIndex = startIndex; charIndex < endIndex; charIndex++) {
           const element = rowRefs[charIndex];
-          if (!element) {
+          const char = row.chars[charIndex];
+          if (!element || !char) {
             continue;
           }
 
-          const char = row.chars[charIndex]!;
-          const baseX = char.baseX + offset;
-          const charCenterX = baseX + char.width / 2;
+          const charCenterX = char.centerX + offset;
           const dx = charCenterX - pointer.x;
-          const dy = yCenter - pointer.y;
           const distance = Math.hypot(dx, dy);
-
-          let rippleX = 0;
-          let rippleY = 0;
-          const baseScale = char.isStar ? STAR_BASE_SCALE : 1;
-          let scale = baseScale;
-          let opacity = char.isSpace ? 0 : BASE_CHAR_OPACITY;
-
-          if (pointer.intensity > 0.001 && distance < REPEL_RADIUS) {
-            const safeDistance = Math.max(distance, 0.001);
-            const normalized = safeDistance / REPEL_SIGMA;
-            const falloff =
-              Math.exp(-(normalized * normalized)) * pointer.intensity;
-
-            if (!reducedMotion) {
-              rippleX = (dx / safeDistance) * REPEL_STRENGTH * falloff;
-              rippleY = (dy / safeDistance) * REPEL_STRENGTH * falloff;
-              scale = baseScale * (1 + 0.4 * falloff);
-            }
-
-            if (!char.isSpace) {
-              opacity = Math.min(
-                1,
-                BASE_CHAR_OPACITY + (reducedMotion ? 0.5 : 0.65) * falloff,
-              );
-            }
+          if (distance >= REPEL_RADIUS) {
+            continue;
           }
 
-          element.style.transform = `translate3d(${baseX + rippleX}px, ${rippleY}px, 0) scale(${scale})`;
+          const safeDistance = Math.max(distance, 0.001);
+          const normalized = safeDistance / REPEL_SIGMA;
+          const falloff =
+            Math.exp(-(normalized * normalized)) * pointer.intensity;
+          const rippleX = (dx / safeDistance) * REPEL_STRENGTH * falloff;
+          const rippleY = (dy / safeDistance) * REPEL_STRENGTH * falloff;
+          const baseScale = char.isStar ? STAR_BASE_SCALE : 1;
+          const scale = baseScale * (1 + 0.4 * falloff);
+          const opacity = char.isSpace
+            ? 0
+            : Math.min(1, BASE_CHAR_OPACITY + 0.65 * falloff);
+
+          element.style.transform = `translate3d(${rippleX}px, ${rippleY}px, 0) scale(${scale})`;
           element.style.opacity = `${opacity}`;
+          nextActiveIndices.push(charIndex);
         }
+
+        if (prevActiveIndices.length > 0) {
+          const activeSet = new Set(nextActiveIndices);
+          for (const charIndex of prevActiveIndices) {
+            if (activeSet.has(charIndex)) {
+              continue;
+            }
+
+            const element = rowRefs[charIndex];
+            const char = row.chars[charIndex];
+            if (!element || !char) {
+              continue;
+            }
+            applyBaseCharStyle(element, char);
+          }
+        }
+
+        activeRippleIndicesRef.current[rowIndex] = nextActiveIndices;
       }
 
       frameId = requestAnimationFrame(animate);
@@ -581,12 +730,15 @@ export default function AsciiParallax({
     return () => {
       cancelAnimationFrame(frameId);
     };
-  }, [rowHeight, rows]);
+  }, [isInView, rowHeight, rows]);
 
   function handlePointerMove(event: React.PointerEvent<HTMLDivElement>) {
-    const rect = event.currentTarget.getBoundingClientRect();
-    pointerRef.current.x = event.clientX - rect.left;
-    pointerRef.current.y = event.clientY - rect.top;
+    if (event.pointerType && event.pointerType !== "mouse") {
+      return;
+    }
+
+    pointerRef.current.x = event.nativeEvent.offsetX;
+    pointerRef.current.y = event.nativeEvent.offsetY;
     pointerRef.current.targetIntensity = 1;
   }
 
@@ -609,33 +761,40 @@ export default function AsciiParallax({
         {rows.map((row, rowIndex) => (
           <div
             key={row.id}
-            className="relative w-full"
+            className="relative w-full overflow-hidden"
             style={{ height: `${rowHeight}px` }}
           >
-            {row.chars.map((char, charIndex) => (
-              <span
-                key={char.key}
-                ref={(node) => {
-                  if (!charRefsRef.current[rowIndex]) {
-                    charRefsRef.current[rowIndex] = [];
-                  }
-                  charRefsRef.current[rowIndex]![charIndex] = node;
-                }}
-                className="pointer-events-none absolute top-0 left-0 whitespace-pre"
-                style={{
-                  color: row.color,
-                  fontFamily: FONT_FAMILY,
-                  fontSize: `${fontSize}px`,
-                  lineHeight: `${rowHeight}px`,
-                  transform: `translate3d(${char.baseX}px, 0, 0) scale(${char.isStar ? STAR_BASE_SCALE : 1})`,
-                  opacity: char.isSpace ? 0 : BASE_CHAR_OPACITY,
-                  willChange: "transform, opacity",
-                  fontWeight: "800",
-                }}
-              >
-                {char.glyph}
-              </span>
-            ))}
+            <div
+              ref={(node) => {
+                rowTrackRefsRef.current[rowIndex] = node;
+              }}
+              className="absolute inset-0 will-change-transform"
+            >
+              {row.chars.map((char, charIndex) => (
+                <span
+                  key={char.key}
+                  ref={(node) => {
+                    if (!charRefsRef.current[rowIndex]) {
+                      charRefsRef.current[rowIndex] = [];
+                    }
+                    charRefsRef.current[rowIndex]![charIndex] = node;
+                  }}
+                  className="pointer-events-none absolute top-0 whitespace-pre"
+                  style={{
+                    left: `${char.baseX}px`,
+                    color: row.color,
+                    fontFamily: FONT_FAMILY,
+                    fontSize: `${fontSize}px`,
+                    lineHeight: `${rowHeight}px`,
+                    transform: `translate3d(0px, 0px, 0) scale(${char.isStar ? STAR_BASE_SCALE : 1})`,
+                    opacity: char.isSpace ? 0 : BASE_CHAR_OPACITY,
+                    fontWeight: "800",
+                  }}
+                >
+                  {char.glyph}
+                </span>
+              ))}
+            </div>
           </div>
         ))}
       </div>

@@ -1,4 +1,54 @@
 import AsciiParallax from "../components/AsciiParallax";
+import {
+  CursorTooltip,
+  type CursorTooltipVariant,
+} from "../components/CursorTooltip";
+import {
+  Ham,
+  Mountain,
+  type LucideIcon,
+  SportShoe,
+  Sprout,
+} from "lucide-react";
+
+type EnjoyItem = {
+  src: string;
+  alt: string;
+  Icon: LucideIcon;
+  label: string;
+  variant: CursorTooltipVariant;
+};
+
+const enjoyItems: EnjoyItem[] = [
+  {
+    src: "/about/enjoy-running.svg",
+    alt: "Group of friends in race medals after a half marathon",
+    Icon: SportShoe,
+    label: "Running (half) marathons",
+    variant: "tertiary",
+  },
+  {
+    src: "/about/enjoy-food.svg",
+    alt: "Overhead view of a shared meal with several dishes spread across a wood table",
+    Icon: Ham,
+    label: "Food with friends",
+    variant: "secondary",
+  },
+  {
+    src: "/about/enjoy-plants.svg",
+    alt: "Tray of seedlings in small pots on a patio",
+    Icon: Sprout,
+    label: "Gardening",
+    variant: "primary",
+  },
+  {
+    src: "/about/enjoy-hiking.svg",
+    alt: "Three pairs of hiking shoes resting at the edge of an alpine lake with the Matterhorn in the background",
+    Icon: Mountain,
+    label: "Gorpcore the way it was intended",
+    variant: "tertiary",
+  },
+];
 
 export default function AboutPage() {
   return (
@@ -18,9 +68,10 @@ export default function AboutPage() {
           <h1 className="font-serif text-[clamp(1.85rem,3.5vw,2.5rem)] font-medium leading-snug tracking-[-0.01em] text-black">
             Hi <span aria-hidden>👋</span> I&apos;m Katrina
           </h1>
-          <p className="font-sans text-lg leading-[1.55] text-neutral-400">
-            I design and build B2B tools for technical power-users. I currently
-            lead frontend engineering and design for an AI analytics platform.
+          <p className="font-sans text-md leading-[1.55] text-neutral-400 max-w-[87%]">
+            I love turning complex technical problems into features that feel
+            simple to use. I currently lead frontend engineering + design for an
+            AI analytics platform.
           </p>
         </div>
       </section>
@@ -43,34 +94,25 @@ export default function AboutPage() {
           Some things I enjoy
         </h2>
         <ul className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-2 md:gap-3 lg:grid-cols-4">
-          <li className="aspect-square w-full overflow-hidden rounded-sm bg-neutral-200">
-            <img
-              src="/about/enjoy-running.svg"
-              alt="Group of friends in race medals after a half marathon"
-              className="h-full w-full object-cover"
-            />
-          </li>
-          <li className="aspect-square w-full overflow-hidden rounded-sm bg-neutral-200">
-            <img
-              src="/about/enjoy-food.svg"
-              alt="Overhead view of a shared meal with several dishes spread across a wood table"
-              className="h-full w-full object-cover"
-            />
-          </li>
-          <li className="aspect-square w-full overflow-hidden rounded-sm bg-neutral-200">
-            <img
-              src="/about/enjoy-plants.svg"
-              alt="Tray of seedlings in small pots on a patio"
-              className="h-full w-full object-cover"
-            />
-          </li>
-          <li className="aspect-square w-full overflow-hidden rounded-sm bg-neutral-200">
-            <img
-              src="/about/enjoy-hiking.svg"
-              alt="Three pairs of hiking shoes resting at the edge of an alpine lake with the Matterhorn in the background"
-              className="h-full w-full object-cover"
-            />
-          </li>
+          {enjoyItems.map((item) => (
+            <li
+              key={item.src}
+              className="aspect-square w-full overflow-hidden rounded-sm bg-neutral-200"
+            >
+              <CursorTooltip
+                label={item.label}
+                variant={item.variant}
+                icon={<item.Icon className="h-5 w-5" aria-hidden />}
+                className="h-full w-full"
+              >
+                <img
+                  src={item.src}
+                  alt={item.alt}
+                  className="h-full w-full object-cover"
+                />
+              </CursorTooltip>
+            </li>
+          ))}
         </ul>
       </section>
     </main>
