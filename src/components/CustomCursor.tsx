@@ -22,13 +22,40 @@ export default function CustomCursor() {
       return;
     }
 
+    let rafId = 0;
+    let nextX = 0;
+    let nextY = 0;
+    let isVisible = false;
+
+    const flushPosition = () => {
+      rafId = 0;
+      dot.style.transform = `translate3d(${nextX}px, ${nextY}px, 0) translate(-50%, -50%)`;
+
+      if (!isVisible) {
+        dot.style.opacity = "1";
+        isVisible = true;
+      }
+    };
+
     const onMove = (e: MouseEvent) => {
-      dot.style.transform = `translate(${e.clientX}px, ${e.clientY}px) translate(-50%, -50%)`;
-      dot.style.opacity = "1";
+      nextX = e.clientX;
+      nextY = e.clientY;
+
+      if (!rafId) {
+        rafId = window.requestAnimationFrame(flushPosition);
+      }
     };
 
     const onLeave = () => {
-      dot.style.opacity = "0";
+      if (rafId) {
+        window.cancelAnimationFrame(rafId);
+        rafId = 0;
+      }
+
+      if (isVisible) {
+        dot.style.opacity = "0";
+        isVisible = false;
+      }
     };
 
     window.addEventListener("mousemove", onMove, { passive: true });
@@ -38,6 +65,10 @@ export default function CustomCursor() {
       root.classList.remove("custom-cursor-active");
       window.removeEventListener("mousemove", onMove);
       root.removeEventListener("mouseleave", onLeave);
+
+      if (rafId) {
+        window.cancelAnimationFrame(rafId);
+      }
     };
   }, []);
 
