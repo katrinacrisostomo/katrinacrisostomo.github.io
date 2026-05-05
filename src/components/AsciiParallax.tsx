@@ -761,14 +761,14 @@ export default function AsciiParallax({
         {rows.map((row, rowIndex) => (
           <div
             key={row.id}
-            className="relative w-full overflow-hidden"
+            className="relative w-full overflow-visible"
             style={{ height: `${rowHeight}px` }}
           >
             <div
               ref={(node) => {
                 rowTrackRefsRef.current[rowIndex] = node;
               }}
-              className="absolute inset-0 will-change-transform"
+              className="absolute inset-0 overflow-visible will-change-transform"
             >
               {row.chars.map((char, charIndex) => (
                 <span
