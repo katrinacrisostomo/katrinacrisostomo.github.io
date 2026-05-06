@@ -69,7 +69,7 @@ export default function AboutPage() {
             Hi <span aria-hidden>👋</span> I&apos;m Katrina
           </h1>
           <p className="font-sans text-md leading-[1.55] text-neutral-400 max-w-[87%]">
-            I love turning complex technical problems into features that feel
+            I love turning complex technical problems into products that feel
             simple to use. I currently lead frontend engineering + design for an
             AI analytics platform.
           </p>
