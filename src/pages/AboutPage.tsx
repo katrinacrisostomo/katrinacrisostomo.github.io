@@ -10,6 +10,7 @@ import {
   SportShoe,
   Sprout,
 } from "lucide-react";
+import { useState } from "react";
 
 type EnjoyItem = {
   src: string;
@@ -21,28 +22,28 @@ type EnjoyItem = {
 
 const enjoyItems: EnjoyItem[] = [
   {
-    src: "/about/enjoy-running.svg",
+    src: "/about/enjoy-running.jpg",
     alt: "Group of friends in race medals after a half marathon",
     Icon: SportShoe,
     label: "Running (half) marathons",
     variant: "tertiary",
   },
   {
-    src: "/about/enjoy-food.svg",
+    src: "/about/enjoy-food.jpg",
     alt: "Overhead view of a shared meal with several dishes spread across a wood table",
     Icon: Ham,
     label: "Food with friends",
     variant: "secondary",
   },
   {
-    src: "/about/enjoy-plants.svg",
+    src: "/about/enjoy-plants.jpg",
     alt: "Tray of seedlings in small pots on a patio",
     Icon: Sprout,
     label: "Gardening",
     variant: "primary",
   },
   {
-    src: "/about/enjoy-hiking.svg",
+    src: "/about/enjoy-hiking.jpg",
     alt: "Three pairs of hiking shoes resting at the edge of an alpine lake with the Matterhorn in the background",
     Icon: Mountain,
     label: "Gorpcore the way it was intended",
@@ -51,17 +52,34 @@ const enjoyItems: EnjoyItem[] = [
 ];
 
 export default function AboutPage() {
+  const [isPortraitLoaded, setIsPortraitLoaded] = useState(false);
+
   return (
     <main
       id="about"
       className="mx-auto flex w-full max-w-8xl flex-1 flex-col px-6 pt-10 pb-16 md:pt-0"
     >
       <section className="mx-auto grid w-full max-w-5xl grid-cols-1 gap-8 pt-10 md:grid-cols-[1fr_2fr] md:gap-12 md:pt-35">
-        <div className="aspect-[4/5] w-full overflow-hidden rounded-sm bg-neutral-200 md:self-start">
+        <div className="relative aspect-[4/5] w-full overflow-hidden rounded-sm bg-white md:self-start">
+          <div
+            aria-hidden
+            className={`pointer-events-none absolute inset-0 bg-white transition-opacity duration-500 ease-out ${
+              isPortraitLoaded ? "opacity-0" : "opacity-100"
+            }`}
+          />
           <img
-            src="/about/portrait.svg"
+            src="/about/portrait.png"
             alt="Katrina holding a green smoothie, surrounded by tropical plants"
-            className="h-full w-full object-cover"
+            width={1792}
+            height={2390}
+            loading="eager"
+            fetchPriority="high"
+            decoding="async"
+            onLoad={() => setIsPortraitLoaded(true)}
+            onError={() => setIsPortraitLoaded(true)}
+            className={`h-full w-full object-cover transition-opacity duration-500 ease-out ${
+              isPortraitLoaded ? "opacity-100" : "opacity-0"
+            }`}
           />
         </div>
         <div className="flex flex-col gap-5 md:h-full md:justify-end pb-0 md:pb-5">
@@ -108,6 +126,8 @@ export default function AboutPage() {
                 <img
                   src={item.src}
                   alt={item.alt}
+                  loading="lazy"
+                  decoding="async"
                   className="h-full w-full object-cover"
                 />
               </CursorTooltip>
