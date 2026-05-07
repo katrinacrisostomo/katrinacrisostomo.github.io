@@ -1,3 +1,5 @@
+import { CursorTooltip } from "./CursorTooltip";
+
 const projectItemGradientA =
   "linear-gradient(125deg, #a8c8e0 0%, #b4aad8 42%, #c070c8 72%, #e0c0d0 100%)";
 
@@ -43,7 +45,11 @@ export default function ProjectItem({
 }: ProjectItemProps) {
   return (
     <article className="mb-6 flex flex-col gap-6 md:mb-0 md:gap-4">
-      <div className="relative aspect-[16/10] w-full overflow-hidden rounded-sm shadow-sm ring-1 ring-black/5">
+      <CursorTooltip
+        label="Coming Soon"
+        variant="secondary"
+        className="relative aspect-[16/10] w-full overflow-hidden rounded-sm shadow-sm ring-1 ring-black/5"
+      >
         <div
           className="absolute inset-0"
           style={{ background: gradient ?? projectItemGradientA }}
@@ -54,7 +60,7 @@ export default function ProjectItem({
             Coming Soon
           </span>
         </div>
-      </div>
+      </CursorTooltip>
 
       <div className="flex flex-col gap-2">
         <div className="flex flex-wrap items-center gap-2.5">

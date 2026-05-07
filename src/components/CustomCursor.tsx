@@ -1,4 +1,8 @@
-import { useEffect, useMemo, useRef } from "react";
+import {
+  useEffect,
+  useMemo,
+  useRef,
+} from "react";
 import {
   type CursorTooltipVariant,
   useCursorTooltipState,
@@ -29,9 +33,17 @@ export default function CustomCursor() {
       opacity: hasTooltip ? 1 : 0,
       transform: hasTooltip
         ? "translate3d(0, -50%, 0) scale(1)"
-        : "translate3d(0, -50%, 0) scale(0.94)",
+        : "translate3d(-8px, -50%, 0) scale(0.94)",
     }),
     [hasTooltip, tooltipStyle.background, tooltipStyle.foreground],
+  );
+
+  const cursorDotStyle = useMemo(
+    () => ({
+      opacity: hasTooltip ? 0 : 1,
+      transform: hasTooltip ? "scale(0.65)" : "scale(1)",
+    }),
+    [hasTooltip],
   );
 
   useEffect(() => {
@@ -124,9 +136,10 @@ export default function CustomCursor() {
       className="pointer-events-none fixed left-0 top-0 z-[9999] opacity-0 will-change-transform"
       aria-hidden
     >
-      {!hasTooltip ? (
-        <span className="block h-3.5 w-3.5 rounded-full bg-primary shadow-sm" />
-      ) : null}
+      <span
+        className="block h-3.5 w-3.5 rounded-full bg-primary shadow-sm transition-[opacity,transform] duration-150 ease-out"
+        style={cursorDotStyle}
+      />
       <div
         className="absolute left-4 top-1/2 inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 font-mono text-[0.7rem] font-medium uppercase tracking-wider whitespace-nowrap shadow-sm transition-[opacity,transform,background-color,color] duration-150 ease-out"
         style={tooltipBubbleStyle}
