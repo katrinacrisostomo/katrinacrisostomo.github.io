@@ -1,4 +1,5 @@
 import { CursorTooltip } from "./CursorTooltip";
+import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
 const projectItemGradientA =
@@ -113,17 +114,25 @@ export default function ProjectItem({
 
   return (
     <article className="mb-6 flex flex-col gap-6 md:mb-0 md:gap-4">
-      {isComingSoon ? (
-        <CursorTooltip
-          label="Coming Soon"
-          variant="primary"
-          className={previewShellClassName}
-        >
-          {previewInner}
-        </CursorTooltip>
-      ) : (
-        <div className={previewShellClassName}>{previewInner}</div>
-      )}
+      <motion.div
+        className={previewShellClassName}
+        initial={{ opacity: 0, y: 14, scale: 0.985 }}
+        whileInView={{ opacity: 1, y: 0, scale: 1 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.55 }}
+      >
+        {isComingSoon ? (
+          <CursorTooltip
+            label="Coming Soon"
+            variant="primary"
+            className="h-full w-full"
+          >
+            {previewInner}
+          </CursorTooltip>
+        ) : (
+          previewInner
+        )}
+      </motion.div>
 
       <div className="flex flex-col gap-2">
         <div className="flex flex-wrap items-center gap-3">
