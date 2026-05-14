@@ -4,6 +4,7 @@ import { CursorTooltipProvider } from "./components/CursorTooltip";
 import Header from "./components/Header";
 import AboutPage from "./pages/AboutPage";
 import SankeySnapshotPage from "./pages/SankeySnapshotPage";
+import SessionTraceSnapshotPage from "./pages/SessionTraceSnapshotPage";
 import WorkPage from "./pages/WorkPage";
 
 function App() {
@@ -18,6 +19,10 @@ function App() {
           <Route
             path="/case-studies/sankey-agent-paths"
             element={<SankeySnapshotPage />}
+          />
+          <Route
+            path="/snapshots/session-trace-inspection"
+            element={<SessionTraceSnapshotPage />}
           />
         </Routes>
       </div>

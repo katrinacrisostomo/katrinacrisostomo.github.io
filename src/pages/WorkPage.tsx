@@ -82,18 +82,26 @@ export default function WorkPage() {
           isComingSoon={false}
         />
         <ProjectItem
-          gradient={projectItemGradientB}
+          type="snapshot"
+          title="Session and Trace Inspection"
+          description="An inspection surface for LLM traces — allows users to debug their LLM apps by easily navigating between sessions, traces, and spans."
+          imageSrc="/work/session-trace-inspection-2.png"
+          imageAlt="Session and trace inspection screenshot"
+          href="/snapshots/session-trace-inspection"
+          isComingSoon={false}
+        />
+        <ProjectItem
           type="snapshot"
           title="LLM-as-a-Judge Eval Creation"
           description="Designing the interface for authoring LLM-powered evaluation metrics — a form that's fast when picking a template and forgiving when writing a custom prompt from scratch."
         />
         <ProjectItem
+          gradient={projectItemGradientB}
           type="blog-article"
           title="Query Builder"
           description="Designing the filter primitive used across the product — a column, operator, and value row that adapts its inputs to whatever data type you're filtering, so users learn it once and recognize it everywhere."
         />
         <ProjectItem
-          gradient={projectItemGradientB}
           type="snapshot"
           title="Custom Dashboards"
           description="An overview of the design that allows users to create custom dashboards to visualize the product analytics of their LLM applications."
