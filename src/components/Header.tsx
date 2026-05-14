@@ -9,7 +9,7 @@ const navLinkClass = ({ isActive }: { isActive: boolean }) =>
 
 export default function Header() {
   return (
-    <header className="shrink-0 border-b border-neutral-200">
+    <header className="sticky top-0 z-40 shrink-0 border-b border-neutral-200 bg-white">
       <div className="mx-auto flex max-w-8xl flex-col items-center gap-6 px-4 py-4 sm:flex-row sm:items-baseline sm:justify-between sm:gap-8">
         <div className="hidden flex-col gap-2 sm:flex sm:flex-row sm:items-baseline sm:gap-5">
           <span className="font-mono text-sm font-medium uppercase">

@@ -74,30 +74,29 @@ export default function WorkPage() {
       >
         <ProjectItem
           type="case-study"
+          title="Agent Paths Visualization"
+          description="Designing and building an interactive visualization to help users understand the paths their agent took in their LLM applications."
+          href="/case-studies/sankey-agent-paths"
+          imageSrc="/work/agent-path-sankey-3.png"
+          imageAlt="Agent path Sankey chart screenshot"
+          isComingSoon={false}
+        />
+        <ProjectItem
+          gradient={projectItemGradientB}
+          type="snapshot"
           title="LLM-as-a-Judge Eval Creation"
           description="Designing the interface for authoring LLM-powered evaluation metrics — a form that's fast when picking a template and forgiving when writing a custom prompt from scratch."
         />
         <ProjectItem
-          gradient={projectItemGradientB}
-          type="snapshot"
-          title="Trace Inspection"
-          description="An overview of the design of our trace inspection tool — a way to inspect the contents of a trace to understand what happened when a user interacted with an LLM application."
-        />
-        <ProjectItem
-          type="snapshot"
-          title="Custom Dashboards"
-          description="An overview of the design that allows users to create custom dashboards to visualize the product analytics of their LLM applications."
-        />
-        <ProjectItem
-          gradient={projectItemGradientB}
-          type="case-study"
+          type="blog-article"
           title="Query Builder"
           description="Designing the filter primitive used across the product — a column, operator, and value row that adapts its inputs to whatever data type you're filtering, so users learn it once and recognize it everywhere."
         />
         <ProjectItem
-          type="concept"
-          title="Anki Flashcards Redesign"
-          description="A study of how Anki could feel calmer and easier to come back to every day, reimagined around my own practice of learning Chinese."
+          gradient={projectItemGradientB}
+          type="snapshot"
+          title="Custom Dashboards"
+          description="An overview of the design that allows users to create custom dashboards to visualize the product analytics of their LLM applications."
         />
       </section>
     </main>

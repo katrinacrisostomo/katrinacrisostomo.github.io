@@ -1,8 +1,4 @@
-import {
-  useEffect,
-  useMemo,
-  useRef,
-} from "react";
+import { useEffect, useMemo, useRef } from "react";
 import {
   type CursorTooltipVariant,
   useCursorTooltipState,
@@ -52,7 +48,9 @@ export default function CustomCursor() {
     }
 
     const pointerQuery = window.matchMedia("(pointer: fine)");
-    const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const reducedMotionQuery = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    );
     if (!pointerQuery.matches || reducedMotionQuery.matches) {
       return;
     }
@@ -141,7 +139,7 @@ export default function CustomCursor() {
         style={cursorDotStyle}
       />
       <div
-        className="absolute left-4 top-1/2 inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 font-mono text-[0.7rem] font-medium uppercase tracking-wider whitespace-nowrap shadow-sm transition-[opacity,transform,background-color,color] duration-150 ease-out"
+        className="absolute left-4 top-1/2 inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 font-mono text-[0.7rem] uppercase tracking-wider whitespace-nowrap shadow-sm transition-[opacity,transform,background-color,color] duration-150 ease-out"
         style={tooltipBubbleStyle}
       >
         {hasIcon ? (

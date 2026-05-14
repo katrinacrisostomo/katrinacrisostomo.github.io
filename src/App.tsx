@@ -3,6 +3,7 @@ import CustomCursor from "./components/CustomCursor";
 import { CursorTooltipProvider } from "./components/CursorTooltip";
 import Header from "./components/Header";
 import AboutPage from "./pages/AboutPage";
+import SankeySnapshotPage from "./pages/SankeySnapshotPage";
 import WorkPage from "./pages/WorkPage";
 
 function App() {
@@ -14,6 +15,10 @@ function App() {
         <Routes>
           <Route path="/" element={<WorkPage />} />
           <Route path="/about" element={<AboutPage />} />
+          <Route
+            path="/case-studies/sankey-agent-paths"
+            element={<SankeySnapshotPage />}
+          />
         </Routes>
       </div>
     </CursorTooltipProvider>
