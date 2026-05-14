@@ -18,7 +18,7 @@ function TitleSlide() {
     <div className="grid items-center gap-10 md:grid-cols-[minmax(0,0.92fr)_minmax(0,1.88fr)] md:gap-14">
       <div className="text-left">
         <h1 className="font-serif text-[clamp(1.8rem,4vw,3.2rem)] leading-[1.04] tracking-[-0.02em] text-black">
-          Agent Paths
+          Agent Path
           <br />
           Visualization
         </h1>
@@ -451,9 +451,9 @@ function ProjectSummary() {
 
 export default function SankeySnapshotPage() {
   return (
-    <main className="mx-auto flex w-full max-w-8xl flex-1 flex-col">
+    <main className="mx-auto flex w-full max-w-8xl flex-1 flex-col md:min-h-0 md:overflow-hidden">
       <Slideshow
-        name="Snapshot: A Sankey Chart for Agent Paths"
+        name="Snapshot: A Sankey Chart for Agent Path Visualization"
         backHref="/"
         backLabel="Go back to work page"
       >

@@ -74,7 +74,7 @@ export default function WorkPage() {
       >
         <ProjectItem
           type="case-study"
-          title="Agent Paths Visualization"
+          title="Agent Path Visualization"
           description="Designing and building an interactive visualization to help users understand the paths their agent took in their LLM applications."
           href="/case-studies/sankey-agent-paths"
           imageSrc="/work/agent-path-sankey-3.png"

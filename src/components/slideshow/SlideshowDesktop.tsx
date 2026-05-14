@@ -63,15 +63,6 @@ export default function SlideshowDesktop({
   const onPrev = useCallback(() => moveBy(-1), [moveBy]);
   const onNext = useCallback(() => moveBy(1), [moveBy]);
 
-  useEffect(() => {
-    if (total === 0) {
-      setIndex(0);
-      return;
-    }
-
-    setIndex((currentIndex) => Math.min(currentIndex, total - 1));
-  }, [total]);
-
   useEffect(
     () => () => {
       if (unlockTimeoutRef.current !== null) {
@@ -91,20 +82,21 @@ export default function SlideshowDesktop({
     cooldownMs: WHEEL_COOLDOWN_MS,
   });
 
-  const activeSlide = slides[index] ?? null;
+  const clampedIndex = total === 0 ? 0 : Math.min(index, total - 1);
+  const activeSlide = slides[clampedIndex] ?? null;
 
   return (
     <div
       ref={slideshowRef}
-      className="relative flex min-h-[calc(100vh-var(--slideshow-top,0px))] flex-col overflow-hidden bg-white"
+      className="relative flex h-[calc(100vh-var(--slideshow-top,0px))] min-h-0 flex-col overflow-hidden bg-white"
     >
-      <SlideshowProgressBar currentIndex={index} total={total} />
+      <SlideshowProgressBar currentIndex={clampedIndex} total={total} />
       <SlideshowName name={name} />
       <div className="relative flex flex-1 overflow-hidden pb-24">
         <AnimatePresence mode="wait" initial={false}>
           {activeSlide ? (
             <motion.div
-              key={index}
+              key={clampedIndex}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -117,7 +109,7 @@ export default function SlideshowDesktop({
         </AnimatePresence>
       </div>
       <SlideshowControls
-        index={index}
+        index={clampedIndex}
         total={total}
         backHref={backHref}
         backLabel={backLabel}
