@@ -9,7 +9,7 @@ import {
 } from "../components/snapshot";
 
 const projectStats: SnapshotStat[] = [
-  { label: "Role", value: "Engineer + Designer" },
+  { label: "Role", value: "Frontend Engineer + Designer" },
   { label: "Timeline", value: "3 weeks" },
   { label: "Built with", value: "React + TypeScript" },
   { label: "Designed with", value: "Prototype in code" },
@@ -75,6 +75,19 @@ export default function SessionTraceSnapshotPage() {
               Users needed to stitch together context across multiple views,
               which made debugging harder than it should be.
             </p>
+            <figure className="flex w-full flex-col gap-3">
+              <img
+                src="/work/trace-inspection/brainstorm.png"
+                alt="Brainstorm mapping out session details and trace and span details, including when users navigate to each view, what they expect to see, and entry points"
+                className="block h-auto w-full max-w-full rounded-sm border border-neutral-200 bg-neutral-50"
+                loading="lazy"
+                decoding="async"
+              />
+              <figcaption className="font-sans text-[0.8125rem] leading-[1.5] text-neutral-400">
+                Early brainstorm mapping out which pages should exist, what
+                belongs on each one, and how users would flow between them.
+              </figcaption>
+            </figure>
           </SnapshotSection>
         </div>
 
