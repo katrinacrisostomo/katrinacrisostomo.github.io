@@ -1,4 +1,6 @@
+import { ArrowBigLeft } from "lucide-react";
 import { useCallback } from "react";
+import { Link } from "react-router-dom";
 import { useSnapshotContext } from "./SnapshotContext";
 
 export default function SnapshotTableOfContents() {
@@ -22,9 +24,16 @@ export default function SnapshotTableOfContents() {
 
   return (
     <aside className="hidden md:block px-6">
-      <div className="sticky top-24 max-h-[calc(100vh-7rem)] overflow-y-auto">
+      <div className="sticky top-12 max-h-[calc(100vh-7rem)] overflow-y-auto">
         <nav aria-label="Snapshot table of contents">
-          <ul className="mt-6 flex flex-col gap-2">
+          <Link
+            to="/"
+            className="mt-5 inline-flex items-center gap-1.5 rounded-sm bg-neutral-100 px-2 py-1 text-[0.8125rem] font-normal font-mono text-neutral-500 transition-colors hover:bg-neutral-200 hover:text-black"
+          >
+            <ArrowBigLeft className="h-2.5 w-2.5 shrink-0" aria-hidden />
+            Home
+          </Link>
+          <ul className="mt-10 flex flex-col gap-3">
             {items.map((item) => {
               const isActive = activeId === item.id;
               const itemClassName = isActive
@@ -35,10 +44,10 @@ export default function SnapshotTableOfContents() {
                 <li key={item.id}>
                   <button
                     type="button"
-                    className={`cursor-pointer font-mono text-xs uppercase transition-colors ${itemClassName}`}
+                    className={`cursor-pointer text-xs font-mono text-left transition-colors ${itemClassName}`}
                     onClick={() => scrollToSection(item.id)}
                   >
-                    — {item.label}
+                    {item.label}
                   </button>
                 </li>
               );

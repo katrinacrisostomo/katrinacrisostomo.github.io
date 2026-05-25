@@ -46,7 +46,7 @@ export default function SnapshotSection({
         <SnapshotTitle>{title}</SnapshotTitle>
         <SnapshotSubtitle>{subtitle}</SnapshotSubtitle>
       </div>
-      <div className="mt-6 flex flex-col gap-6 font-sans text-[0.875rem] leading-[1.6] text-neutral-500">
+      <div className="mt-6 flex flex-col gap-6 font-sans text-[0.9rem] text-neutral-500">
         {children}
       </div>
     </section>
