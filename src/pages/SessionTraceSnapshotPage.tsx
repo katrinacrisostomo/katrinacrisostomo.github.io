@@ -1,3 +1,4 @@
+import { useCallback, useState } from "react";
 import {
   SnapshotBanner,
   SnapshotCarousel,
@@ -7,6 +8,12 @@ import {
   type SnapshotCarouselSlide,
   type SnapshotStat,
 } from "../components/snapshot";
+import SnapshotCarouselModal from "../components/snapshot/SnapshotCarouselModal";
+
+const brainstormSlide: SnapshotCarouselSlide = {
+  src: "/work/trace-inspection/brainstorm.png",
+  alt: "Brainstorm mapping out session details and trace and span details, including when users navigate to each view, what they expect to see, and entry points",
+};
 
 const projectStats: SnapshotStat[] = [
   { label: "Role", value: "Frontend Engineer + Designer" },
@@ -35,6 +42,10 @@ const productScreens: SnapshotCarouselSlide[] = [
 ];
 
 export default function SessionTraceSnapshotPage() {
+  const [isBrainstormOpen, setIsBrainstormOpen] = useState(false);
+  const openBrainstorm = useCallback(() => setIsBrainstormOpen(true), []);
+  const closeBrainstorm = useCallback(() => setIsBrainstormOpen(false), []);
+
   return (
     <SnapshotLayout>
       <SnapshotBanner
@@ -76,13 +87,23 @@ export default function SessionTraceSnapshotPage() {
               which made debugging harder than it should be.
             </p>
             <figure className="flex w-full flex-col gap-3">
-              <img
-                src="/work/trace-inspection/brainstorm.png"
-                alt="Brainstorm mapping out session details and trace and span details, including when users navigate to each view, what they expect to see, and entry points"
-                className="block h-auto w-full max-w-full rounded-sm border border-neutral-200 bg-neutral-50"
-                loading="lazy"
-                decoding="async"
-              />
+              <button
+                type="button"
+                onClick={openBrainstorm}
+                aria-label="Expand brainstorm image"
+                className="group relative block w-full"
+              >
+                <img
+                  src={brainstormSlide.src}
+                  alt={brainstormSlide.alt}
+                  className="block h-auto w-full max-w-full rounded-sm border border-neutral-200 bg-neutral-50"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <span className="pointer-events-none absolute right-3 bottom-3 rounded-full bg-black/55 px-3 py-1 font-mono text-[0.62rem] uppercase tracking-[0.12em] text-white">
+                  Expand
+                </span>
+              </button>
               <figcaption className="font-sans text-[0.8125rem] leading-[1.5] text-neutral-400">
                 Early brainstorm mapping out which pages should exist, what
                 belongs on each one, and how users would flow between them.
@@ -135,6 +156,13 @@ export default function SessionTraceSnapshotPage() {
           />
         </SnapshotSection>
       </div>
+      <SnapshotCarouselModal
+        slides={[brainstormSlide]}
+        activeIndex={isBrainstormOpen ? 0 : null}
+        onClose={closeBrainstorm}
+        onPrev={closeBrainstorm}
+        onNext={closeBrainstorm}
+      />
     </SnapshotLayout>
   );
 }
