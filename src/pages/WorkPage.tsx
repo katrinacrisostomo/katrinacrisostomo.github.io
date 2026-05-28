@@ -1,5 +1,5 @@
 import AsciiParallax from "../components/AsciiParallax";
-import ProjectItem, { projectItemGradientB } from "../components/ProjectItem";
+import ProjectItem from "../components/ProjectItem";
 
 const experience = [
   {
@@ -76,7 +76,7 @@ export default function WorkPage() {
           type="case-study"
           title="Agent Path Visualization"
           description="Designing and building an interactive visualization to help users understand the paths their agent took in their LLM applications."
-          href="/case-studies/sankey-agent-paths"
+          href="/sankey-agent-paths"
           imageSrc="/work/agent-path-sankey-4.png"
           imageAlt="Agent path Sankey chart screenshot"
           isComingSoon={false}
@@ -87,24 +87,27 @@ export default function WorkPage() {
           description="An inspection surface for LLM traces — allows users to debug their LLM apps by easily navigating between sessions, traces, and spans."
           imageSrc="/work/session-trace-inspection-2.png"
           imageAlt="Session and trace inspection screenshot"
-          href="/snapshots/session-trace-inspection"
+          href="/session-trace-inspection"
+          isComingSoon={false}
+        />
+        <ProjectItem
+          type="snapshot"
+          title="A Shared System for Data Exploration"
+          description="Designing and building foundational visualization components that gave the platform a consistent way to present trends, comparisons, distributions, and user journeys."
+        />
+        <ProjectItem
+          type="blog-article"
+          title="Query Builder"
+          description="Designing the filter primitive used across the product — a column, operator, and value row that adapts its inputs to whatever data type you're filtering, so users learn it once and recognize it everywhere."
+          imageSrc="/work/query-builder.png"
+          imageAlt="Query builder filters screenshot"
+          href="/query-builder"
           isComingSoon={false}
         />
         <ProjectItem
           type="snapshot"
           title="LLM-as-a-Judge Eval Creation"
           description="Designing the interface for authoring LLM-powered evaluation metrics — a form that's fast when picking a template and forgiving when writing a custom prompt from scratch."
-        />
-        <ProjectItem
-          gradient={projectItemGradientB}
-          type="blog-article"
-          title="Query Builder"
-          description="Designing the filter primitive used across the product — a column, operator, and value row that adapts its inputs to whatever data type you're filtering, so users learn it once and recognize it everywhere."
-        />
-        <ProjectItem
-          type="snapshot"
-          title="Custom Dashboards"
-          description="An overview of the design that allows users to create custom dashboards to visualize the product analytics of their LLM applications."
         />
       </section>
     </main>

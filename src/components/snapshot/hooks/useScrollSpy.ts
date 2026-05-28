@@ -34,6 +34,29 @@ export default function useScrollSpy({
       return;
     }
 
+    // When the user has scrolled to the bottom of the page, force the
+    // section nearest the bottom of the document to be active. This avoids
+    // a stale highlight when the final section is too short for its top to
+    // cross the target offset before scrolling runs out.
+    const scrollPosition = window.scrollY + window.innerHeight;
+    const documentHeight = document.documentElement.scrollHeight;
+    const atBottom = scrollPosition >= documentHeight - 2;
+
+    if (atBottom) {
+      let bottommost: { id: string; top: number } | null = null;
+      for (const [id, node] of nodes) {
+        const { top } = node.getBoundingClientRect();
+        if (!bottommost || top > bottommost.top) {
+          bottommost = { id, top };
+        }
+      }
+      if (bottommost) {
+        const nextId = bottommost.id;
+        setActiveId((currentId) => (currentId === nextId ? currentId : nextId));
+        return;
+      }
+    }
+
     const targetY = window.innerHeight * targetOffset;
     let closestAbove: { id: string; top: number } | null = null;
     let closestBelow: { id: string; top: number } | null = null;

@@ -8,7 +8,7 @@ type SnapshotLayoutProps = {
 };
 
 const baseClassName =
-  "mx-auto grid w-full max-w-8xl flex-1 grid-cols-1 gap-8 px-6 pt-10 pb-20 md:grid-cols-[12rem_minmax(0,1fr)] md:px-0 md:pt-0 md:gap-10";
+  "mx-auto grid w-full max-w-8xl flex-1 grid-cols-1 gap-8 px-6 pt-10 md:grid-cols-[12rem_minmax(0,1fr)] md:px-0 md:pt-0 md:gap-10";
 
 export default function SnapshotLayout({
   children,
@@ -22,7 +22,7 @@ export default function SnapshotLayout({
     <SnapshotProvider>
       <main className={composedClassName}>
         <SnapshotTableOfContents />
-        <article className="min-w-0 md:border-l md:border-neutral-200">
+        <article className="min-w-0 pb-20 md:border-l md:border-neutral-200">
           {children}
         </article>
       </main>

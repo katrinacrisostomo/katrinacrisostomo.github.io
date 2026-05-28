@@ -13,9 +13,9 @@ const comingSoonPlaceholderSrc = "/work/gradient-placeholder.png";
 export type ProjectItemType = "case-study" | "snapshot" | "blog-article";
 
 const TYPE_LABEL: Record<ProjectItemType, string> = {
-  "case-study": "Case Study",
+  "case-study": "Case Study Slides",
   snapshot: "Snapshot",
-  "blog-article": "Blog",
+  "blog-article": "Case Study Blog",
 };
 
 const TYPE_CHIP_CLASS: Record<ProjectItemType, string> = {
@@ -146,7 +146,7 @@ export default function ProjectItem({
             {title}
           </h3>
         </div>
-        <p className="font-sans text-[0.8125rem] font-normal text-neutral-400">
+        <p className="font-sans text-[0.875rem] font-normal text-neutral-400">
           {description}
         </p>
       </div>

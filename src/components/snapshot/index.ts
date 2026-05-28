@@ -1,6 +1,7 @@
 export { default as SnapshotBanner } from "./SnapshotBanner";
 export { default as SnapshotCarousel } from "./SnapshotCarousel";
 export type { SnapshotCarouselSlide } from "./SnapshotCarouselModal";
+export { default as SnapshotFrame } from "./SnapshotFrame";
 export { default as SnapshotHeader } from "./SnapshotHeader";
 export type { SnapshotStat } from "./SnapshotHeader";
 export { default as SnapshotLayout } from "./SnapshotLayout";
