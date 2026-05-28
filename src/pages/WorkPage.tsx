@@ -91,9 +91,13 @@ export default function WorkPage() {
           isComingSoon={false}
         />
         <ProjectItem
-          type="snapshot"
-          title="A Shared System for Data Exploration"
-          description="Designing and building foundational visualization components that gave the platform a consistent way to present trends, comparisons, distributions, and user journeys."
+          type="blog-article"
+          title="Beyond Summary Metrics"
+          description="Designing and building a distribution comparison workflow that helps teams see how agent behavior changes across experiments, errors, models, and user cohorts."
+          imageSrc="/work/distribution-comparison.png"
+          imageAlt="Distribution comparison screenshot"
+          href="https://www.distributional.com/blog/beyond-averages-how-dbnls-distribution-comparison-reveals-what-summary-metrics-hide"
+          isComingSoon={false}
         />
         <ProjectItem
           type="blog-article"
@@ -103,6 +107,11 @@ export default function WorkPage() {
           imageAlt="Query builder filters screenshot"
           href="/query-builder"
           isComingSoon={false}
+        />
+        <ProjectItem
+          type="snapshot"
+          title="A Shared System for Data Exploration"
+          description="Designing and building foundational visualization components that gave the platform a consistent way to present trends, comparisons, distributions, and user journeys."
         />
         <ProjectItem
           type="snapshot"

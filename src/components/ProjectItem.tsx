@@ -69,41 +69,43 @@ export default function ProjectItem({
   const previewShellClassName =
     "group relative aspect-[16/10] w-full overflow-hidden rounded-[3px] ring-1 ring-black/5";
 
+  const isExternalHref = !!href && /^(https?:)?\/\//i.test(href);
+
+  const previewMedia = effectiveImageSrc ? (
+    <img
+      src={effectiveImageSrc}
+      alt={effectiveImageAlt}
+      className={previewImageClassName}
+      loading="lazy"
+      decoding="async"
+    />
+  ) : (
+    <div
+      className="absolute inset-0"
+      style={{ background: gradient ?? projectItemGradientA }}
+      aria-hidden
+    />
+  );
+
   const previewInner = href ? (
-    <Link to={href} className="block h-full w-full" aria-label={title}>
-      {effectiveImageSrc ? (
-        <img
-          src={effectiveImageSrc}
-          alt={effectiveImageAlt}
-          className={previewImageClassName}
-          loading="lazy"
-          decoding="async"
-        />
-      ) : (
-        <div
-          className="absolute inset-0"
-          style={{ background: gradient ?? projectItemGradientA }}
-          aria-hidden
-        />
-      )}
-    </Link>
+    isExternalHref ? (
+      <a
+        href={href}
+        className="block h-full w-full"
+        aria-label={title}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {previewMedia}
+      </a>
+    ) : (
+      <Link to={href} className="block h-full w-full" aria-label={title}>
+        {previewMedia}
+      </Link>
+    )
   ) : (
     <>
-      {effectiveImageSrc ? (
-        <img
-          src={effectiveImageSrc}
-          alt={effectiveImageAlt}
-          className={previewImageClassName}
-          loading="lazy"
-          decoding="async"
-        />
-      ) : (
-        <div
-          className="absolute inset-0"
-          style={{ background: gradient ?? projectItemGradientA }}
-          aria-hidden
-        />
-      )}
+      {previewMedia}
       <div className="pointer-events-none absolute inset-0 flex items-center justify-center p-4">
         <span className="rounded-full border-white/60 bg-white/45 px-4 py-1.5 font-mono text-xs uppercase tracking-wider text-neutral-800 shadow-sm backdrop-blur-sm">
           {chipLabel}
