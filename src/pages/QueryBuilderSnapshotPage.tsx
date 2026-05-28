@@ -353,6 +353,9 @@ export default function QueryBuilderSnapshotPage() {
               muted
               playsInline
             />
+            <figcaption className="font-sans text-[0.8125rem] leading-[1.5] text-neutral-400">
+              Progressive disclosure of the advanced expression feature.
+            </figcaption>
           </SnapshotSection>
         </div>
 
