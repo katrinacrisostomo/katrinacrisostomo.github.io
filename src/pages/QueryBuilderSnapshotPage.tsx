@@ -345,6 +345,14 @@ export default function QueryBuilderSnapshotPage() {
                 experience.
               </li>
             </ul>
+            <video
+              src="/work/query-builder/advancedexpression.mp4"
+              className="block h-auto w-full overflow-hidden rounded-md border border-neutral-200 bg-neutral-50"
+              autoPlay
+              loop
+              muted
+              playsInline
+            />
           </SnapshotSection>
         </div>
 
