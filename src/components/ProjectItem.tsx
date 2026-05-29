@@ -10,28 +10,16 @@ export const projectItemGradientB =
 
 const comingSoonPlaceholderSrc = "/work/gradient-placeholder.png";
 
-export type ProjectItemType = "case-study" | "snapshot" | "blog-article";
-
-const TYPE_LABEL: Record<ProjectItemType, string> = {
-  "case-study": "Case Study Slides",
-  snapshot: "Snapshot",
-  "blog-article": "Case Study Blog",
-};
-
-const TYPE_CHIP_CLASS: Record<ProjectItemType, string> = {
-  "case-study": "bg-tertiary text-black",
-  snapshot: "bg-secondary text-black",
-  "blog-article": "bg-primary text-white",
-};
-
-/** Shown on chip hover for quick context */
-const TYPE_TITLE: Record<ProjectItemType, string> = {
-  "case-study":
-    "Case Study: deep dive of something designed and built at work.",
-  snapshot:
-    "Snapshot: a lighter, higher-level look at a design — the gist, not the full story.",
-  "blog-article":
-    "Blog Article: a written piece exploring ideas, observations, or lessons learned.",
+export type ProjectTag = {
+  label: string;
+  /**
+   * Tailwind classes used for the chip's colors (background, text, border, etc.).
+   * Example: "bg-primary text-white" or "bg-secondary text-black".
+   * Defaults to a neutral chip if omitted.
+   */
+  className?: string;
+  /** Optional native tooltip shown on hover for quick context. */
+  title?: string;
 };
 
 type ProjectItemProps = {
@@ -39,7 +27,7 @@ type ProjectItemProps = {
   imageSrc?: string;
   imageAlt?: string;
   imageClassName?: string;
-  type: ProjectItemType;
+  tags?: ProjectTag[];
   title: string;
   description: string;
   href?: string;
@@ -51,7 +39,7 @@ export default function ProjectItem({
   imageSrc,
   imageAlt,
   imageClassName,
-  type,
+  tags,
   title,
   description,
   href,
@@ -138,12 +126,21 @@ export default function ProjectItem({
 
       <div className="flex flex-col gap-2">
         <div className="flex flex-wrap items-center gap-3">
-          <p
-            className={`inline-flex shrink-0 rounded-sm px-2 py-1 font-mono text-xs font-normal ${TYPE_CHIP_CLASS[type]}`}
-            title={TYPE_TITLE[type]}
-          >
-            {TYPE_LABEL[type]}
-          </p>
+          {tags && tags.length > 0 && (
+            <div className="flex shrink-0 flex-wrap items-center gap-1.5">
+              {tags.map((tag, index) => (
+                <p
+                  key={`${tag.label}-${index}`}
+                  className={`inline-flex shrink-0 rounded-sm px-2 py-1 font-mono text-xs font-normal ${
+                    tag.className ?? "bg-neutral-100 text-neutral-700"
+                  }`}
+                  title={tag.title}
+                >
+                  {tag.label}
+                </p>
+              ))}
+            </div>
+          )}
           <h3 className="min-w-0 flex-1 font-serif text-xl leading-[1.05] tracking-[-0.02em] text-black">
             {title}
           </h3>

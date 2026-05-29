@@ -13,6 +13,12 @@ const userQuestions = [
   "Which paths run the slowest?",
 ];
 
+const titleStats = [
+  { label: "My role", value: "Frontend Engineer\n+ Designer" },
+  { label: "Built with", value: "Typescript, React in Next.js app" },
+  { label: "Designed with", value: "Prototype in code" },
+];
+
 function TitleSlide() {
   return (
     <div className="grid items-center gap-10 md:grid-cols-[minmax(0,0.92fr)_minmax(0,1.88fr)] md:gap-14">
@@ -25,14 +31,22 @@ function TitleSlide() {
         <p className="mt-6 font-sans text-sm font-normal leading-[normal] tracking-normal text-black/30 italic">
           May 12th, 2026
         </p>
-        <p className="mt-12 max-w-[22rem] font-sans text-[0.9375rem] font-normal leading-[normal] tracking-normal text-black/60">
+        <p className="mt-12 max-w-[22rem] font-sans text-[1.0625rem] font-normal leading-[1.5] tracking-normal text-black/80">
           Designed and built at Distributional, an analytics platform for AI
           applications.
         </p>
-        <p className="mt-5 max-w-[22rem] font-sans text-[0.9375rem] font-normal leading-[normal] tracking-normal text-black/60">
-          I worked with product and research to design + build the feature from
-          concept through ship.
-        </p>
+        <div className="mt-12 grid max-w-[22rem] grid-cols-3 gap-x-5 gap-y-6">
+          {titleStats.map((stat) => (
+            <div key={stat.label} className="flex flex-col gap-1">
+              <p className="font-mono text-[0.68rem] uppercase text-neutral-400">
+                {stat.label}
+              </p>
+              <p className="font-sans text-[0.975rem] leading-[1.35] whitespace-pre-line text-black">
+                {stat.value}
+              </p>
+            </div>
+          ))}
+        </div>
       </div>
       <img
         src="/work/agent-path-sankey-3.png"
@@ -410,9 +424,10 @@ function SomeFixesBelongInLibrary() {
 }
 
 const projectSummaryDetails = [
-  { label: "My role", value: "Engineer\n+ Designer" },
+  { label: "My role", value: "Frontend Engineer\n+ Designer" },
   { label: "Project length", value: "2 weeks from\nideation → ship" },
   { label: "Built with", value: "Typescript, React in Next.js app" },
+  { label: "Designed with", value: "Prototype in code" },
   { label: "Open source contributions", value: "Recharts Sankey Component" },
 ];
 
@@ -435,11 +450,13 @@ function ProjectSummary() {
         loading="lazy"
         decoding="async"
       />
-      <div className="mt-5 grid grid-cols-2 gap-x-6 gap-y-8 md:grid-cols-4 md:gap-x-8">
+      <div className="mt-8 grid grid-cols-2 gap-x-6 gap-y-7 md:grid-cols-5 md:gap-x-8">
         {projectSummaryDetails.map((detail) => (
           <div key={detail.label} className="flex flex-col gap-1">
-            <p className="font-sans text-sm text-neutral-400">{detail.label}</p>
-            <p className="font-sans text-[1.25rem] leading-[1.25] whitespace-pre-line text-neutral-900">
+            <p className="font-mono text-[0.68rem] uppercase text-neutral-400">
+              {detail.label}
+            </p>
+            <p className="font-sans text-[1rem] leading-[1.35] whitespace-pre-line text-black">
               {detail.value}
             </p>
           </div>

@@ -73,50 +73,63 @@ export default function WorkPage() {
         aria-label="Work samples"
       >
         <ProjectItem
-          type="case-study"
-          title="Agent Path Visualization"
-          description="Designing and building an interactive visualization to help users understand the paths their agent took in their LLM applications."
-          href="/sankey-agent-paths"
-          imageSrc="/work/agent-path-sankey-4.png"
-          imageAlt="Agent path Sankey chart screenshot"
-          isComingSoon={false}
-        />
-        <ProjectItem
-          type="snapshot"
-          title="Session and Trace Inspection"
-          description="An inspection surface for LLM traces — allows users to debug their LLM apps by easily navigating between sessions, traces, and spans."
-          imageSrc="/work/session-trace-inspection-2.png"
-          imageAlt="Session and trace inspection screenshot"
-          href="/session-trace-inspection"
-          isComingSoon={false}
-        />
-        <ProjectItem
-          type="blog-article"
-          title="Beyond Summary Metrics"
-          description="Designing and building a distribution comparison workflow that helps teams see how agent behavior changes across experiments, errors, models, and user cohorts."
-          imageSrc="/work/distribution-comparison.png"
-          imageAlt="Distribution comparison screenshot"
-          href="https://www.distributional.com/blog/beyond-averages-how-dbnls-distribution-comparison-reveals-what-summary-metrics-hide"
-          isComingSoon={false}
-        />
-        <ProjectItem
-          type="blog-article"
-          title="Query Builder"
-          description="Designing the filter primitive used across the product — a column, operator, and value row that adapts its inputs to whatever data type you're filtering, so users learn it once and recognize it everywhere."
+          tags={[
+            { label: "Case Study Blog", className: "bg-primary text-white" },
+          ]}
+          title="A Reusable Query Builder System"
+          description="Designed and built the shared filtering primitive used across the product — a data-type aware column, operator, and value pattern that made complex querying feel consistent, learnable, and reusable."
           imageSrc="/work/query-builder.png"
           imageAlt="Query builder filters screenshot"
           href="/query-builder"
           isComingSoon={false}
         />
         <ProjectItem
-          type="snapshot"
-          title="A Shared System for Data Exploration"
-          description="Designing and building foundational visualization components that gave the platform a consistent way to present trends, comparisons, distributions, and user journeys."
+          tags={[{ label: "Snapshot", className: "bg-secondary text-black" }]}
+          title="Debugging Complex AI Workflows"
+          description="Designed and built a trace inspection experience for navigating sessions, traces, and spans — helping teams debug LLM applications with clearer hierarchy, faster scanning, and production-ready interaction patterns."
+          imageSrc="/work/session-trace-inspection-2.png"
+          imageAlt="Session and trace inspection screenshot"
+          href="/session-trace-inspection"
+          isComingSoon={false}
         />
         <ProjectItem
-          type="snapshot"
-          title="LLM-as-a-Judge Eval Creation"
-          description="Designing the interface for authoring LLM-powered evaluation metrics — a form that's fast when picking a template and forgiving when writing a custom prompt from scratch."
+          tags={[{ label: "Snapshot", className: "bg-secondary text-black" }]}
+          title="A Shared UI Standard for the Product"
+          description="Designed and built the product’s design system from scratch, connecting Figma, React components, and Tailwind tokens into a shared foundation for consistent, high-quality product surfaces."
+        />
+
+        <ProjectItem
+          tags={[
+            { label: "Case Study Slides", className: "bg-tertiary text-black" },
+          ]}
+          title="Visualizing AI Agent Paths"
+          description="Designed and built an interactive path visualization that helps teams understand how AI agents move through tools, decisions, and failure states — turning complex execution traces into a readable product surface."
+          href="/sankey-agent-paths"
+          imageSrc="/work/agent-path-sankey-4.png"
+          imageAlt="Agent path Sankey chart screenshot"
+          isComingSoon={false}
+        />
+
+        <ProjectItem
+          tags={[
+            { label: "Case Study Blog", className: "bg-primary text-white" },
+          ]}
+          title="Making Distribution Data Actionable"
+          description="Designed and built a distribution comparison workflow that helps teams see how agent behavior changes across experiments, errors, models, and cohorts — moving users beyond averages into sharper product decisions."
+          imageSrc="/work/distribution-comparison.png"
+          imageAlt="Distribution comparison screenshot"
+          href="https://www.distributional.com/blog/beyond-averages-how-dbnls-distribution-comparison-reveals-what-summary-metrics-hide"
+          isComingSoon={false}
+        />
+        <ProjectItem
+          tags={[{ label: "Snapshot", className: "bg-secondary text-black" }]}
+          title="A Shared System for Data Exploration"
+          description="Designed and built the foundational visualization system behind trends, comparisons, distributions, and user journeys — giving product teams a consistent way to ship data-dense interfaces faster."
+        />
+        <ProjectItem
+          tags={[{ label: "Snapshot", className: "bg-secondary text-black" }]}
+          title="Creating AI Evaluation Workflows"
+          description="Designing the interface for authoring LLM-as-a-judge evaluation metrics — a form that's fast when picking a template and forgiving when writing a custom prompt from scratch."
         />
       </section>
     </main>
