@@ -114,7 +114,7 @@ export default function WorkPage() {
           tags={[
             { label: "Case Study Blog", className: "bg-primary text-white" },
           ]}
-          title="Making Distribution Data Actionable"
+          title="Beyond Averages: Distribution Comparison"
           description="Designed and built a distribution comparison workflow that helps teams see how agent behavior changes across experiments, errors, models, and cohorts — moving users beyond averages into sharper product decisions."
           imageSrc="/work/distribution-comparison.png"
           imageAlt="Distribution comparison screenshot"
