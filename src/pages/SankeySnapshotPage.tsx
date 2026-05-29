@@ -425,7 +425,6 @@ function SomeFixesBelongInLibrary() {
 
 const projectSummaryDetails = [
   { label: "My role", value: "Frontend Engineer\n+ Designer" },
-  { label: "Project length", value: "2 weeks from\nideation → ship" },
   { label: "Built with", value: "Typescript, React in Next.js app" },
   { label: "Designed with", value: "Prototype in code" },
   { label: "Open source contributions", value: "Recharts Sankey Component" },
@@ -450,9 +449,12 @@ function ProjectSummary() {
         loading="lazy"
         decoding="async"
       />
-      <div className="mt-8 grid grid-cols-2 gap-x-6 gap-y-7 md:grid-cols-5 md:gap-x-8">
+      <div className="mt-8 grid w-full grid-cols-2 gap-x-6 gap-y-7 md:flex md:justify-between md:gap-x-8">
         {projectSummaryDetails.map((detail) => (
-          <div key={detail.label} className="flex flex-col gap-1">
+          <div
+            key={detail.label}
+            className="flex flex-col gap-1 md:max-w-[11.5rem] md:flex-none"
+          >
             <p className="font-mono text-[0.68rem] uppercase text-neutral-400">
               {detail.label}
             </p>

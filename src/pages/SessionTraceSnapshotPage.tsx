@@ -17,7 +17,6 @@ const brainstormSlide: SnapshotCarouselSlide = {
 
 const projectStats: SnapshotStat[] = [
   { label: "Role", value: "Frontend Engineer + Designer" },
-  { label: "Project length", value: "3 weeks from\nideation → ship" },
   { label: "Built with", value: "Typescript, React in Next.js app" },
   { label: "Designed with", value: "Prototype in code" },
 ];

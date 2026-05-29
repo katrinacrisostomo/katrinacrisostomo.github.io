@@ -14,7 +14,6 @@ import {
 
 const projectStats: SnapshotStat[] = [
   { label: "Role", value: "Frontend Engineer + Designer" },
-  { label: "Timeline", value: "3 weeks from\nideation → ship" },
   { label: "Built with", value: "Typescript, React in Next.js app" },
   { label: "Designed with", value: "Prototype in code" },
 ];
@@ -137,10 +136,17 @@ export default function QueryBuilderSnapshotPage() {
           <SnapshotSection
             id="the-product-bet"
             title="Product Bet"
-            subtitle="Most queries were simpler than the system allowed"
+            subtitle="Simple filters were buried in a complex query language"
           >
             <p>
-              My bet was that most queries users wanted to make were simple.
+              My bet was that most queries users wanted to make were actually
+              quite simple.
+            </p>
+            <p>
+              <Highlighter color="pink">
+                "Which logs have errors?" "Which traces were run by model X?"
+                "Which requests had high latency?"
+              </Highlighter>
             </p>
             <p>
               They were not usually trying to write deeply nested expressions on
@@ -196,7 +202,9 @@ export default function QueryBuilderSnapshotPage() {
               different kinds of data.
             </p>
             <p>
-              <Highlighter color="pink">There was no canonical schema.</Highlighter>
+              <Highlighter color="pink">
+                There was no canonical schema.
+              </Highlighter>
             </p>
             <p>
               One team might have a field called <code>status</code>. Another
@@ -443,8 +451,8 @@ export default function QueryBuilderSnapshotPage() {
             </p>
             <p>
               <Highlighter color="pink">
-                The query builder was no longer just a form. It became connective
-                tissue.
+                The query builder was no longer just a form. It became
+                connective tissue.
               </Highlighter>
             </p>
             <video
