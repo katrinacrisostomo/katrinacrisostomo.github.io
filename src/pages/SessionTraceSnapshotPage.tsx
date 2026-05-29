@@ -86,6 +86,18 @@ export default function SessionTraceSnapshotPage() {
               Users needed to stitch together context across multiple views,
               which made debugging harder than it should be.
             </p>
+            <p>
+              Through early workflow mapping, I realized users needed to move
+              between these levels in different ways. Session-level analysis was
+              about understanding the shape of a user’s overall journey, while
+              trace and span analysis was about inspecting a specific unit of
+              work in detail.
+            </p>
+            <p>
+              That led to a two-view structure: a session detail page for the
+              broader user journey, connected to a trace and span detail view
+              for deeper debugging.
+            </p>
             <figure className="flex w-full flex-col gap-3">
               <button
                 type="button"
