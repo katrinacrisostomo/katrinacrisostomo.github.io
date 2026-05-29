@@ -1,4 +1,5 @@
 import CanonicalSchemaDiagram from "../components/CanonicalSchemaDiagram";
+import Highlighter from "../components/Highlighter";
 import FilterTyping from "../components/FilterTyping";
 import QueryBuilderDiagram from "../components/QueryBuilderDiagram";
 import QueryStructureComparison from "../components/QueryStructureComparison";
@@ -84,10 +85,13 @@ export default function QueryBuilderSnapshotPage() {
               So the real design problem was not simply — How do we let users
               write a log query?
             </p>
-            <p className="font-medium text-neutral-700">
-              The design challenge was — How do we create a query UI that is
-              easy enough for most users, flexible enough for power users, and
-              structured enough to be reused across the product?
+            <p>
+              The design challenge was —{" "}
+              <Highlighter color="pink">
+                How do we create a query UI that is easy enough for most users,
+                flexible enough for power users, and structured enough to be
+                reused across the product?
+              </Highlighter>
             </p>
             <SnapshotFrame caption="One Query Builder, reused across Logs, Dashboards, Evals, and Segments.">
               <QueryBuilderDiagram replayOnReenter />
@@ -191,8 +195,8 @@ export default function QueryBuilderSnapshotPage() {
               But there was a problem: our users could upload and define very
               different kinds of data.
             </p>
-            <p className="font-medium text-neutral-700">
-              There was no canonical schema.
+            <p>
+              <Highlighter color="pink">There was no canonical schema.</Highlighter>
             </p>
             <p>
               One team might have a field called <code>status</code>. Another
@@ -395,7 +399,7 @@ export default function QueryBuilderSnapshotPage() {
             </p>
             <p>
               I made the decision to switch to an explicit{" "}
-              <strong className="font-medium text-neutral-700">Apply</strong>{" "}
+              <Highlighter color="pink">Apply</Highlighter>{" "}
               button.
             </p>
             <p>
@@ -437,9 +441,11 @@ export default function QueryBuilderSnapshotPage() {
               chart could use the same filter structure to generate a drilldown.
               An eval could use the segment as a starting dataset.
             </p>
-            <p className="font-medium text-neutral-700">
-              The query builder was no longer just a form. It became connective
-              tissue.
+            <p>
+              <Highlighter color="pink">
+                The query builder was no longer just a form. It became connective
+                tissue.
+              </Highlighter>
             </p>
             <video
               src="/work/query-builder/drilldown[final]-nobg.mp4"

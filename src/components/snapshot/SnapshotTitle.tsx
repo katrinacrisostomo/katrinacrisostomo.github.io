@@ -5,7 +5,10 @@ type SnapshotTitleProps = {
   className?: string;
 };
 
-const baseClassName = "font-mono text-[0.75rem] uppercase text-neutral-400";
+const baseClassName = "flex items-center gap-4";
+const textClassName =
+  "font-mono text-[0.75rem] uppercase text-neutral-400 whitespace-nowrap";
+const lineClassName = "h-px flex-1 bg-neutral-200";
 
 export default function SnapshotTitle({
   children,
@@ -15,5 +18,10 @@ export default function SnapshotTitle({
     ? `${baseClassName} ${className}`
     : baseClassName;
 
-  return <p className={composedClassName}>{children}</p>;
+  return (
+    <div className={composedClassName}>
+      <span className={textClassName}>{children}</span>
+      <span aria-hidden="true" className={lineClassName} />
+    </div>
+  );
 }

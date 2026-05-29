@@ -29,6 +29,31 @@ body::-webkit-scrollbar {
   --color-tertiary: #c5dbfe;
 }
 
+.highlighter-mark {
+  display: inline;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  background-image: var(--highlight-gradient);
+  background-repeat: no-repeat;
+  background-size: 0% 100%;
+  border-radius: 0.25em 0.2em 0.22em 0.18em;
+  margin: -0.04em -0.06em;
+  padding: 0.04em 0.06em;
+  color: inherit;
+  transition: background-size 1.1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.highlighter-mark.is-highlighted {
+  background-size: 100% 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .highlighter-mark {
+    transition: none;
+    background-size: 100% 100%;
+  }
+}
+
 @media (pointer: fine) {
   html.custom-cursor-active {
     cursor: none;
