@@ -1,3 +1,4 @@
+import Highlighter from "../components/Highlighter";
 import {
   Slide,
   SlideImageCaption,
@@ -72,10 +73,12 @@ function AgentsDontRunInStraightLines() {
             Looking at flat trace logs tells you nothing about the shape of all
             that.
           </p>
-          <span className="font-medium text-neutral-600">
-            You need to see the flow in order to understand how your agent is
-            behaving.
-          </span>
+          <p>
+            <Highlighter color="pink" animate="visible">
+              You need to see the flow in order to understand how your agent is
+              behaving.
+            </Highlighter>
+          </p>
         </SlideText>
         <div className="flex min-w-0 w-full flex-col items-center gap-6">
           <img
@@ -111,9 +114,11 @@ function BorrowWhatUsersKnow() {
             same shape of question, so we landed on using the same chart to
             display what is essentially the agent&apos;s journey.
           </p>
-          <p className="font-semibold text-neutral-700">
-            Same visual vocabulary, new domain. Less of a learning curve for the
-            user.
+          <p>
+            <Highlighter color="pink" animate="visible">
+              Same visual vocabulary, new domain. Less of a learning curve for
+              the user.
+            </Highlighter>
           </p>
         </SlideText>
         <div className="flex flex-col items-center gap-4">
@@ -145,13 +150,12 @@ function AgentJourneysArentUserJourneys() {
         </p>
         <p>
           Rendering the whole thing at once produced a wall of unreadable nodes.
-          If we couldn&apos;t display the full tree, I realized I needed to
-          prototype while designing &mdash;{" "}
-          <span className="font-semibold text-neutral-700">
-            to play around with what &quot;navigating the tree&quot; should feel
-            like
-          </span>
-          .
+          If we couldn&apos;t display the full tree, I realized{" "}
+          <Highlighter color="pink" animate="visible">
+            I needed to prototype while designing
+          </Highlighter>
+          &mdash; to play around with what &quot;navigating the tree&quot;
+          should feel like.
         </p>
       </SlideText>
       <img

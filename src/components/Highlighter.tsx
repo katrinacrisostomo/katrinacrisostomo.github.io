@@ -17,12 +17,19 @@ const COLOR_GRADIENTS: Record<HighlighterColor, string> = {
   blue: "linear-gradient(82deg,#3884f46b,#3884f41f 6%,#3884f438 93%,#3884f47a)",
 };
 
+export type HighlighterAnimate = "reveal" | "visible";
+
 export type HighlighterProps = {
   children: ReactNode;
   /** Preset highlight ink color. Defaults to yellow. */
   color?: HighlighterColor;
   /** Custom gradient; overrides `color` when set. */
   gradient?: string;
+  /**
+   * `reveal` (default): animate after the text has been off-screen once — for scroll pages.
+   * `visible`: animate when the text enters the viewport, including on mount — for slideshow slides.
+   */
+  animate?: HighlighterAnimate;
   className?: string;
 };
 
@@ -37,6 +44,7 @@ export default function Highlighter({
   children,
   color = "yellow",
   gradient,
+  animate = "reveal",
   className,
 }: HighlighterProps) {
   const markRef = useRef<HTMLSpanElement>(null);
@@ -65,26 +73,35 @@ export default function Highlighter({
       });
     };
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (!entry.isIntersecting) {
-            canAnimate = true;
-            continue;
-          }
-          if (canAnimate && entry.intersectionRatio >= 0.2) {
+    const observerOptions: IntersectionObserverInit = {
+      threshold: [0, 0.2, 0.35],
+      rootMargin: "-20% 0px -20% 0px",
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (animate === "visible") {
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.2) {
             playHighlight();
           }
+          continue;
         }
-      },
-      {
-        threshold: [0, 0.2, 0.35],
-        rootMargin: "-20% 0px -20% 0px",
-      },
-    );
 
-    observer.observe(node);
-    return () => observer.disconnect();
+        if (!entry.isIntersecting) {
+          canAnimate = true;
+          continue;
+        }
+        if (canAnimate && entry.intersectionRatio >= 0.2) {
+          playHighlight();
+        }
+      }
+    }, observerOptions);
+
+    const frame = requestAnimationFrame(() => observer.observe(node));
+    return () => {
+      cancelAnimationFrame(frame);
+      observer.disconnect();
+    };
   }, []);
 
   const highlightGradient = gradient ?? COLOR_GRADIENTS[color];

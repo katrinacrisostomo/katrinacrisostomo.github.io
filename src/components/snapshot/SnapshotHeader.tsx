@@ -65,7 +65,7 @@ export default function SnapshotHeader({
         ))}
       </div>
       {description ? (
-        <p className="mt-8 max-w-[42rem] font-sans text-[0.9rem] leading-[1.6] text-neutral-500">
+        <p className="mt-8 w-full font-sans text-[0.9rem] leading-[1.6] text-neutral-500">
           {description}
         </p>
       ) : null}
