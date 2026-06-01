@@ -98,7 +98,7 @@ export default function ProjectItem({
       {previewMedia}
       {isComingSoon ? (
         <div
-          className="pointer-events-none absolute inset-0 z-[1] bg-white/40"
+          className="pointer-events-none absolute inset-0 z-[1] bg-white/60"
           aria-hidden
         />
       ) : null}
