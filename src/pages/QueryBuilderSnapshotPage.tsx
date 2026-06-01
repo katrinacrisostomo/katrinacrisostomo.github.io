@@ -51,11 +51,17 @@ export default function QueryBuilderSnapshotPage() {
             title="The Brief"
             subtitle="A query pattern that needed to scale beyond logs"
           >
-            <p>
+            {/* <p>
               We wanted users to be able to query their logs without needing to
               learn a custom query language first.
-            </p>
+            </p> */}
             <p>
+              The immediate need was log filtering: finding errors, narrowing to
+              an experiment, isolating slow requests, or looking at traces from
+              a specific model, prompt version, or customer. But the interaction
+              had broader product implications.
+            </p>
+            {/* <p>
               At the time, the immediate need was log filtering. Users needed to
               answer questions like:
             </p>
@@ -67,7 +73,7 @@ export default function QueryBuilderSnapshotPage() {
                 Show me traces from a specific model, prompt version, or
                 customer
               </li>
-            </ul>
+            </ul> */}
             <p>
               But I knew this interaction would likely become more important
               than a one-off logs feature.
@@ -76,9 +82,7 @@ export default function QueryBuilderSnapshotPage() {
               Across the product, we were starting to need the same kind of
               filtering behavior in multiple places: filtering logs, narrowing
               dashboard graphs, creating eval datasets, and defining reusable
-              groups of data. We called these reusable filters <em>segments</em>
-              : a query that could be created once, saved, and used across
-              different product surfaces.
+              groups of data.
             </p>
             <p>
               So the real design problem was not simply — How do we let users
@@ -104,7 +108,14 @@ export default function QueryBuilderSnapshotPage() {
             title="Starting Point"
             subtitle="A powerful query language with too much user friction"
           >
-            <p>We already had an internal query language within DBNL.</p>
+            <p>
+              DBNL already had an internal query language, so the fastest path
+              was to expose a textarea and let users write queries directly.
+              That would have been flexible and easy to ship, but it put the
+              burden on users to learn product-specific syntax before they could
+              answer basic questions about their logs.
+            </p>
+            {/* <p>We already had an internal query language within DBNL.</p>
             <p>
               The simplest implementation path was obvious: expose a textarea,
               let users write queries directly, and send the query to the
@@ -125,8 +136,8 @@ export default function QueryBuilderSnapshotPage() {
               Some were technical, some were not. Even for technical users,
               asking them to learn a new product-specific query language just to
               answer basic questions felt like a high-friction starting point.
-            </p>
-            <SnapshotFrame caption="Raw filter syntax — each new clause forces a re-wrap and re-indent.">
+            </p> */}
+            <SnapshotFrame caption="Raw filter syntax — DBNL's proprietary query language.">
               <FilterTyping replayOnReenter />
             </SnapshotFrame>
           </SnapshotSection>
@@ -139,6 +150,23 @@ export default function QueryBuilderSnapshotPage() {
             subtitle="Simple filters were buried in a complex query language"
           >
             <p>
+              <Highlighter color="pink">
+                My bet was that most queries were simple:
+              </Highlighter>{" "}
+              logs with errors, traces from model X, requests with high latency.
+            </p>
+            <p>
+              Users were usually trying to narrow a dataset, not write deeply
+              nested expressions. So instead of optimizing for maximum
+              expressiveness, I focused on the common path: choose a field,
+              choose an operator, choose a value.
+            </p>
+            <p>
+              That structure matched familiar filter patterns, reduced the need
+              to learn custom syntax, and gave us a query format we could save,
+              re-render, and reuse later as segments.
+            </p>
+            {/* <p>
               My bet was that most queries users wanted to make were actually
               quite simple.
             </p>
@@ -174,7 +202,7 @@ export default function QueryBuilderSnapshotPage() {
               inputs later. A raw string would have been flexible, but it would
               not preserve the user&apos;s original intent in a way that was
               easy to edit visually.
-            </p>
+            </p> */}
             <SnapshotFrame caption="String input vs. structured query — one outcome vs. four.">
               <QueryStructureComparison replayOnReenter />
             </SnapshotFrame>
@@ -188,6 +216,20 @@ export default function QueryBuilderSnapshotPage() {
             subtitle="Presets broke without a canonical schema"
           >
             <p>
+              I considered a hybrid approach: keep the textarea, but add preset
+              buttons for common queries like “View logs with errors.”
+            </p>
+            <p>
+              The problem was that there was no canonical schema. One team might
+              use <code>status</code>, another <code>error_type</code>,{" "}
+              <code>level</code>, or <code>is_error</code>.
+            </p>
+            <p>
+              Presets would either be too generic to help or too opinionated to
+              work reliably. The interface needed to adapt to the user’s actual
+              columns.
+            </p>
+            {/* <p>
               One alternative I considered was a hybrid approach: keep the
               textarea, but add easy preset buttons for common queries like
               &ldquo;View logs with errors&rdquo;.
@@ -220,7 +262,7 @@ export default function QueryBuilderSnapshotPage() {
             <p>
               The interface needed to adapt to the user&apos;s actual columns,
               not assume a fixed schema.
-            </p>
+            </p> */}
             <SnapshotFrame caption="Without a canonical schema, a single &ldquo;errors&rdquo; preset can't reliably map to every dataset.">
               <CanonicalSchemaDiagram replayOnReenter />
             </SnapshotFrame>
@@ -233,7 +275,20 @@ export default function QueryBuilderSnapshotPage() {
             title="The Solution"
             subtitle="A structured row-based query builder"
           >
-            <p>The final direction was a row-based query builder.</p>
+            <p>The final direction was a row-based query builder:</p>
+            <p className="font-mono text-[0.8125rem] text-neutral-700">
+              Column → Operator → Value
+            </p>
+            <p>
+              Each row represented one condition, and rows were ANDed together
+              so users could narrow data step by step.
+            </p>
+            <p>
+              It was intentionally not the most expressive interface possible.
+              The goal was to make the common path obvious, fast, and hard to
+              get wrong, while leaving room for advanced logic later.
+            </p>
+            {/* <p>The final direction was a row-based query builder.</p>
             <p>Each row represented one condition:</p>
             <p className="font-mono text-[0.8125rem] text-neutral-700">
               Column → Operator → Value
@@ -257,7 +312,7 @@ export default function QueryBuilderSnapshotPage() {
               The goal was to make the common path obvious, fast, and hard to
               get wrong &mdash; while still leaving room for more advanced logic
               later.
-            </p>
+            </p> */}
             <div className="w-full overflow-hidden rounded-[3px] ring-1 ring-black/5">
               <img
                 src="/work/query-builder/rows-without-buttons.png"
@@ -277,6 +332,23 @@ export default function QueryBuilderSnapshotPage() {
             subtitle="Designing around column types, operators, and values"
           >
             <p>
+              The main complexity was that each column type needed different
+              operators and inputs.
+            </p>
+            <p>
+              A string, number, boolean, or timestamp should not all behave the
+              same, so I designed the first version around the most common data
+              types while keeping the structure flexible enough to add more
+              later.
+            </p>
+            <p>
+              To move quickly, I designed support around the most common data
+              types first, while making sure the underlying structure could grow
+              over time. The goal was not to support every possible query
+              through the UI, but to create a foundation that could grow without
+              redesigning the interaction.
+            </p>
+            {/* <p>
               The next layer of complexity was that the operator and value input
               depended on the column&apos;s data type.
             </p>
@@ -303,7 +375,7 @@ export default function QueryBuilderSnapshotPage() {
               DBNL expression through the UI. The goal was to create a
               foundation where new data types and operators could be added
               without redesigning the entire interaction.
-            </p>
+            </p> */}
             <SnapshotFrame>
               <img
                 src="/work/query-builder/row-types.png"
@@ -323,6 +395,19 @@ export default function QueryBuilderSnapshotPage() {
             subtitle="Keeping the common path simple without closing off advanced use"
           >
             <p>
+              The row-based UI made simple queries easier, but it also limited
+              users to what the interface supported.
+            </p>
+            <p>
+              To keep advanced use cases possible, we added an escape hatch: an
+              advanced expression row that could be ANDed with the structured
+              rows or used on its own.
+            </p>
+            <p>
+              That kept the default experience approachable without removing the
+              flexibility of the underlying query language.
+            </p>
+            {/* <p>
               The row-based UI made query building much easier, but it
               introduced a real tradeoff: users were now limited to what the
               interface supported.
@@ -356,7 +441,7 @@ export default function QueryBuilderSnapshotPage() {
                 We did not need to expose the full query language as the default
                 experience.
               </li>
-            </ul>
+            </ul> */}
             <video
               src="/work/query-builder/advancedexpression.mp4"
               className="block h-auto w-full overflow-hidden rounded-md border border-neutral-200 bg-neutral-50"
@@ -425,6 +510,14 @@ export default function QueryBuilderSnapshotPage() {
             subtitle="One query contract across product surfaces"
           >
             <p>
+              The query builder became a shared UI language across the product.
+            </p>
+            <p>
+              Users could learn the pattern once, then reuse it to filter logs,
+              create segments, update dashboards, drill into chart data, or
+              define eval datasets.
+            </p>
+            {/* <p>
               The most important outcome was that the query builder became a
               shared UI language across the product.
             </p>
@@ -448,8 +541,10 @@ export default function QueryBuilderSnapshotPage() {
               A segment created from logs could later be used in a dashboard. A
               chart could use the same filter structure to generate a drilldown.
               An eval could use the segment as a starting dataset.
-            </p>
+            </p> */}
             <p>
+              Because the query was structured, each surface could pass it
+              around and interpret it consistently.{" "}
               <Highlighter color="pink">
                 The query builder was no longer just a form. It became
                 connective tissue.
@@ -549,6 +644,46 @@ export default function QueryBuilderSnapshotPage() {
 
         <div className="mx-auto w-full max-w-[48rem]">
           <SnapshotSection
+            id="the-impact"
+            title="The Impact"
+            subtitle="One query pattern across multiple workflows"
+          >
+            <p>
+              Designed and built the first version in 2 weeks, replacing a
+              syntax-first workflow with a guided Column → Operator → Value
+              interaction.
+            </p>
+            <p>
+              The query builder shipped across logs, dashboards, segments, and
+              eval setup, giving the product one structured query contract that
+              could be saved, re-rendered, and reused across surfaces.
+            </p>
+            <p>
+              <Highlighter color="pink">
+                Acted on early user feedback after launch
+              </Highlighter>{" "}
+              &mdash; users were unsure whether closing the modal would apply or
+              discard their query, so we introduced an explicit{" "}
+              <code>Apply Filters</code> action to make query execution more
+              predictable.
+            </p>
+            <img
+              src="/work/query-builder.png"
+              alt="Query builder filter modal with tool_call_count and output_relevancy rows and an Apply Filters button"
+              className="block h-auto w-full overflow-hidden rounded-md border border-neutral-200 bg-neutral-50"
+              loading="lazy"
+              decoding="async"
+            />
+            <figcaption className="font-sans text-[0.8125rem] leading-[1.5] text-neutral-400">
+              After seeing users hesitate around whether closing the modal would
+              apply or discard their query, we added an explicit Apply Filters
+              button to make query execution more predictable.
+            </figcaption>
+          </SnapshotSection>
+        </div>
+
+        <div className="mx-auto w-full max-w-[48rem]">
+          <SnapshotSection
             id="the-takeaway"
             title="Takeaways"
             subtitle="Lessons learned"
@@ -585,6 +720,15 @@ export default function QueryBuilderSnapshotPage() {
                 <p className="font-serif text-[1.05rem] leading-[1.6] text-neutral-700">
                   Progressive disclosure balanced usability with expert
                   flexibility.
+                </p>
+              </blockquote>
+              <blockquote className="border-l-2 border-neutral-200 pl-4 not-italic">
+                <footer className="mb-3 font-mono text-[0.75rem] tracking-[0.12em] text-neutral-400 uppercase">
+                  Lesson #4
+                </footer>
+                <p className="font-serif text-[1.05rem] leading-[1.6] text-neutral-700">
+                  See how users interact with the feature and iterate quickly on
+                  feedback.
                 </p>
               </blockquote>
             </div>
