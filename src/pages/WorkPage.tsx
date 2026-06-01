@@ -96,6 +96,9 @@ export default function WorkPage() {
           tags={[{ label: "Snapshot", className: "bg-secondary text-black" }]}
           title="A Shared UI Standard for the Product"
           description="Designed and built the product’s design system from scratch, connecting Figma, React components, and Tailwind tokens into a shared foundation for consistent, high-quality product surfaces."
+          imageSrc="/work/design-tokens.png"
+          imageAlt="Product UI on a purple background showing design tokens in a runs table with status pills and actions"
+          isComingSoon
         />
 
         <ProjectItem
@@ -109,7 +112,14 @@ export default function WorkPage() {
           imageAlt="Agent path Sankey chart screenshot"
           isComingSoon={false}
         />
-
+        <ProjectItem
+          tags={[{ label: "Snapshot", className: "bg-secondary text-black" }]}
+          title="A Shared System for Data Exploration"
+          description="Designed and built the foundational visualization system behind trends, comparisons, distributions, and user journeys — giving product teams a consistent way to ship data-dense interfaces faster."
+          imageSrc="/work/charts-design-system.png"
+          imageAlt="Charts and metric cards on a purple gradient showing line, bar, and stacked visualizations from the design system"
+          isComingSoon
+        />
         <ProjectItem
           tags={[
             { label: "Case Study Blog", className: "bg-primary text-white" },
@@ -121,11 +131,7 @@ export default function WorkPage() {
           href="https://www.distributional.com/blog/beyond-averages-how-dbnls-distribution-comparison-reveals-what-summary-metrics-hide"
           isComingSoon={false}
         />
-        <ProjectItem
-          tags={[{ label: "Snapshot", className: "bg-secondary text-black" }]}
-          title="A Shared System for Data Exploration"
-          description="Designed and built the foundational visualization system behind trends, comparisons, distributions, and user journeys — giving product teams a consistent way to ship data-dense interfaces faster."
-        />
+
         <ProjectItem
           tags={[{ label: "Snapshot", className: "bg-secondary text-black" }]}
           title="Creating AI Evaluation Workflows"

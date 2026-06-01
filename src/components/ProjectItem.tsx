@@ -46,10 +46,12 @@ export default function ProjectItem({
   isComingSoon = true,
 }: ProjectItemProps) {
   const chipLabel = isComingSoon ? "Coming Soon" : "View Snapshot";
-  const effectiveImageSrc = isComingSoon ? comingSoonPlaceholderSrc : imageSrc;
-  const effectiveImageAlt = isComingSoon ? "" : (imageAlt ?? "");
-  const previewImageBaseClassName =
-    "absolute inset-0 h-full w-full object-cover transform-gpu transition-all duration-700 ease-out will-change-transform group-hover:-translate-y-1 group-hover:scale-[1.03] group-hover:opacity-90";
+  const effectiveImageSrc =
+    imageSrc ?? (isComingSoon ? comingSoonPlaceholderSrc : undefined);
+  const effectiveImageAlt = imageAlt ?? "";
+  const previewImageBaseClassName = isComingSoon
+    ? "absolute inset-0 h-full w-full object-cover"
+    : "absolute inset-0 h-full w-full object-cover transform-gpu transition-all duration-700 ease-out will-change-transform group-hover:-translate-y-1 group-hover:scale-[1.03] group-hover:opacity-90";
   const previewImageClassName = imageClassName
     ? `${previewImageBaseClassName} ${imageClassName}`
     : previewImageBaseClassName;
@@ -94,8 +96,14 @@ export default function ProjectItem({
   ) : (
     <>
       {previewMedia}
-      <div className="pointer-events-none absolute inset-0 flex items-center justify-center p-4">
-        <span className="rounded-full border-white/60 bg-white/45 px-4 py-1.5 font-mono text-xs uppercase tracking-wider text-neutral-800 shadow-sm backdrop-blur-sm">
+      {isComingSoon ? (
+        <div
+          className="pointer-events-none absolute inset-0 z-[1] bg-white/40"
+          aria-hidden
+        />
+      ) : null}
+      <div className="pointer-events-none absolute inset-0 z-[2] flex items-center justify-center p-4">
+        <span className="rounded-full border border-white/70 bg-white/55 px-4 py-1.5 font-mono text-xs uppercase tracking-wider text-neutral-800 shadow-[0_2px_12px_rgba(0,0,0,0.12),0_8px_24px_rgba(0,0,0,0.08)] backdrop-blur-sm">
           {chipLabel}
         </span>
       </div>
