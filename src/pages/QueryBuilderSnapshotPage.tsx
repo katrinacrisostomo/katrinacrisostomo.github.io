@@ -41,7 +41,7 @@ export default function QueryBuilderSnapshotPage() {
           <SnapshotHeader
             title="Query Builder"
             stats={projectStats}
-            description="Designing a reusable querying interface for AI observability workflows. This snapshot walks through the product bets, tradeoffs, and interaction details behind the structured query builder we shipped at Distributional."
+            description="Designing a reusable querying interface for AI observability workflows. Designed and built at Distributional, an analytics platform for AI applications, this blog walks through the product bets, tradeoffs, and interaction details behind the structured query builder we shipped."
           />
         </div>
 
