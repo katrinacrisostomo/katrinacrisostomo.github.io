@@ -86,6 +86,10 @@ const PRETEXT_FONT_FAMILY = '"IBM Plex Mono", ui-monospace, monospace';
 const REPEL_RADIUS = 110;
 const REPEL_SIGMA = 72;
 const REPEL_STRENGTH = 14;
+// Extra vertical room (above/below the band) so characters displaced and
+// scaled up near the cursor in the top/bottom rows aren't clipped by the
+// horizontal-overflow clip box.
+const VERTICAL_OVERFLOW = 28;
 const BASE_CHAR_OPACITY = 0.82;
 const STAR_SYMBOL = "☆";
 const STAR_BASE_SCALE = 1;
@@ -651,7 +655,8 @@ export default function AsciiParallax({
           continue;
         }
 
-        const yCenter = rowIndex * rowHeight + rowHeight / 2;
+        const yCenter =
+          VERTICAL_OVERFLOW + rowIndex * rowHeight + rowHeight / 2;
         const dy = yCenter - pointer.y;
         if (Math.abs(dy) >= REPEL_RADIUS) {
           if (prevActiveIndices.length > 0) {
@@ -754,7 +759,13 @@ export default function AsciiParallax({
       <div
         ref={containerRef}
         className="relative w-full overflow-hidden select-none"
-        style={{ height: `${bandHeight}px` }}
+        style={{
+          height: `${bandHeight + VERTICAL_OVERFLOW * 2}px`,
+          marginTop: `${-VERTICAL_OVERFLOW}px`,
+          marginBottom: `${-VERTICAL_OVERFLOW}px`,
+          paddingTop: `${VERTICAL_OVERFLOW}px`,
+          paddingBottom: `${VERTICAL_OVERFLOW}px`,
+        }}
         onPointerMove={handlePointerMove}
         onPointerLeave={handlePointerLeave}
       >
